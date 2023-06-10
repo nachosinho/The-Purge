@@ -32,6 +32,7 @@ public:
 	//Level* getCurrentLevel(void) { return this->m_CurrentLevel; }
 	//Player* getPlayer(void) { return this->m_Player; }
 
+	RenderWindow* getWindow(void) { return this->m_Window; }
 	int getGameStatus(void) { return this->m_GameState; }
 	Clock* getClock(void) { return this->m_Clock; }
 

@@ -29,9 +29,12 @@ using sf::Sound;
 using sf::SoundBuffer;
 
 using std::vector;
+using std::map;
+using std::pair;
 using std::string;
 using std::to_string;
 using std::remove;
+using std::runtime_error;
 
 #define DISABLE_TASKBAR TRUE
 #define ENABLE_CONSOLE TRUE
