@@ -1,0 +1,8 @@
+﻿  GameManager.cpp
+E:\DeathProject\The-Purge\The-Purge\Engine\GameManager.cpp(20,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+  The-Purge.cpp
+  Trwa generowanie kodu
+  Previous IPDB not found, fall back to full compilation.
+  All 84 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Zakończono generowanie kodu
+  The-Purge.vcxproj -> E:\DeathProject\The-Purge\The-Purge\x64\Release\The-Purge.exe
