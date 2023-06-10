@@ -56,12 +56,12 @@ void GameManager::eventManager(void) {
 
 void GameManager::restartGame(void) {
 	//delete this->m_Menu;
-	//delete this->m_Player;
+	delete this->m_Player;
 	//delete this->m_CurrentLevel;
 
 	//this->m_Menu = nullptr;
 	this->m_GameState = GAMESTATE::PLAYING;
-	//this->m_Player = new Player(this);
+	this->m_Player = new Player(this);
 	//this->m_CurrentLevel = new TestLevel(this);
 }
 
@@ -70,21 +70,20 @@ void GameManager::render() {
 
 		this->eventManager();
 
-		if (GetForegroundWindow() != this->m_WindowHandler &&
-			this->getGameStatus() == GAMESTATE::PLAYING)
+		//if (GetForegroundWindow() != this->m_WindowHandler &&
+			//this->getGameStatus() == GAMESTATE::PLAYING)
 			//this->setMenu(new PauseMenu(*this), GAMESTATE::PAUSED);
 
-		this->m_Window->clear();
+		this->m_Window->clear(Color::White);
 		//
 		//if (this->m_CurrentLevel != nullptr) {
 		//	this->m_CurrentLevel->render(this->m_Window);
 		//	this->m_CurrentLevel->manageMusic();
 		//}
 
-		//if (this->m_Player != nullptr) {
-		//	this->m_Player->update(this->m_CurrentLevel->getCurrentRoom()->getPlatforms(), this->m_CurrentLevel->getCurrentRoom()->getKeys());
-		//	this->m_Player->render(this->m_Window);
-		//}
+		if (this->m_Player != nullptr) {
+			this->m_Player->render();
+		}
 
 		//if (this->m_Menu != nullptr) {
 		//	this->m_Menu->render(this->m_Window);

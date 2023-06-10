@@ -9,13 +9,18 @@ private:
 	Vector2i m_FrameSize;
 	const float m_SwitchTime = 0.3f;
 	float m_TotalTime;
+	string m_Name;
+	class NPC* m_NPC;
 
 public:
-	Animation(string, Vector2i, int);
+	Animation(class NPC*, string, Vector2i, int);
 
+	string getName(void) { return this->m_Name; }
+	int getCurrentFrame(void) { return this->m_CurrentFrame; }
 	Texture* getTexture(void) { return this->m_Texture; }
-	IntRect getFrame(void) { return { m_CurrentFrame / 8 * m_FrameSize.x * m_CurrentFrame, m_CurrentFrame % 8 * m_FrameSize.y * m_CurrentFrame,
+	IntRect getFrame(void) {
+		return { m_CurrentFrame % 8 * m_FrameSize.x, m_CurrentFrame / 8 * m_FrameSize.y,
 								m_FrameSize.x, m_FrameSize.y };}
 
-	void render(void);
+	void render(float);
 };

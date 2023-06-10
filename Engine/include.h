@@ -38,7 +38,7 @@ using std::runtime_error;
 
 #define DISABLE_TASKBAR TRUE
 #define ENABLE_CONSOLE TRUE
-#define DEBUGGING FALSE
+#define DEBUGGING TRUE
 
 const string GAME_TITLE = "The Purge";
 
@@ -47,4 +47,5 @@ const int WINDOW_Y = 600;
 const int FRAMERATE_LIMIT = 60;
 const int FALL_TIME = 200;
 
-const float PLAYER_SPEED = 100.0f;
+const float PLAYER_SPEED = 1.f;
+const float M_PI = 3.14159265358979323846;

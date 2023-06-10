@@ -1,5 +1,5 @@
 #pragma once
-#include "include.h"
+#include "Player.h"
 
 class GameManager {
 private:
@@ -10,7 +10,7 @@ private:
 	Event* m_Event;
 	Clock* m_Clock;
 
-	//Player* m_Player;
+	Player* m_Player;
 	//Level* m_Level;
 	//Menu* m_Menu;
 	//SubMenu* m_SubMenu;
@@ -30,7 +30,7 @@ public:
 	GameManager(void);
 
 	//Level* getCurrentLevel(void) { return this->m_CurrentLevel; }
-	//Player* getPlayer(void) { return this->m_Player; }
+	Player* getPlayer(void) { return this->m_Player; }
 
 	RenderWindow* getWindow(void) { return this->m_Window; }
 	int getGameStatus(void) { return this->m_GameState; }
