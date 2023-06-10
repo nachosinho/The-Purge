@@ -57,6 +57,7 @@ void GameManager::eventManager(void) {
 void GameManager::restartGame(void) {
 	//delete this->m_Menu;
 	delete this->m_Player;
+	this->m_Player = nullptr;
 	//delete this->m_CurrentLevel;
 
 	//this->m_Menu = nullptr;

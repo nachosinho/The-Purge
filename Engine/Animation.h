@@ -13,14 +13,15 @@ private:
 	class NPC* m_NPC;
 
 public:
-	Animation(class NPC*, string, Vector2i, int);
+	Animation(class NPC*, string, string, Vector2i, int);
 
 	string getName(void) { return this->m_Name; }
 	int getCurrentFrame(void) { return this->m_CurrentFrame; }
+	int getFramesCount(void) { return this->m_FramesCount; }
 	Texture* getTexture(void) { return this->m_Texture; }
-	IntRect getFrame(void) {
+	IntRect getFrameRect(void) {
 		return { m_CurrentFrame % 8 * m_FrameSize.x, m_CurrentFrame / 8 * m_FrameSize.y,
 								m_FrameSize.x, m_FrameSize.y };}
 
-	void render(float);
+	void render(float&);
 };

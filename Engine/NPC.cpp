@@ -16,15 +16,22 @@ void NPC::setHealth(int _value) {
 	this->m_HealthBar->setPercentage(this->getHealth());
 }
 
-void NPC::addAnimation(string _animName, Animation* _animation) {
-	if (m_Animations->find(_animName) != m_Animations->end()) return;
-	m_Animations->insert(pair<string, Animation*>(_animName, _animation));
+void NPC::addAnimation(Animation* _animation) {
+	if (m_Animations->find(_animation->getName()) != m_Animations->end()) return;
+	m_Animations->insert(pair<string, Animation*>(_animation->getName(), _animation));
 }
 
 void NPC::setAnimation(string _mapKey) {
 	if (m_Animations->find(_mapKey) == m_Animations->end()) return;
+	if (this->m_CurrentAnimation == nullptr) {
+		this->m_CurrentAnimation = (*m_Animations)[_mapKey];
+		this->setTexture(*this->m_CurrentAnimation->getTexture());
+		this->setTextureRect(this->m_CurrentAnimation->getFrameRect());
+	}
 
-	this->m_CurrentAnimation = (*m_Animations)[_mapKey];
-	this->setTexture(*this->m_CurrentAnimation->getTexture());
-	this->setTextureRect(this->m_CurrentAnimation->getFrame());
+	else if (this->m_CurrentAnimation->getName() != _mapKey) {
+		this->m_CurrentAnimation = (*m_Animations)[_mapKey];
+		this->setTexture(*this->m_CurrentAnimation->getTexture());
+		this->setTextureRect(this->m_CurrentAnimation->getFrameRect());
+	}
 }

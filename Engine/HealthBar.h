@@ -9,6 +9,9 @@ private:
 public:
 	HealthBar(class NPC*, RenderWindow*);
 
+	Vector2f getPosition(void) { return this->m_HealthBarBack->getPosition(); }
+	Vector2f getSize(void) { return this->m_HealthBarBack->getSize(); }
+
 	void setColor(Color);
 	void setPercentage(float);
 	void setPosition(float, float);

@@ -44,8 +44,8 @@ void HealthBar::render(void) {
 
 	sf::FloatRect playerBounds = this->m_NPC->getGlobalBounds();
 	sf::FloatRect healthBarBounds = this->m_HealthBarBack->getGlobalBounds();
-	this->m_HealthBarBack->setPosition(playerBounds.left + playerBounds.width / 2 - healthBarBounds.width / 2,
-		playerBounds.top - healthBarBounds.height - 10);
+	this->m_HealthBarBack->setPosition(playerBounds.left + playerBounds.width / 2.f - healthBarBounds.width / 2.f,
+		playerBounds.top - healthBarBounds.height + 10.f);
 
 	this->m_HealthBarFront->setPosition(this->m_HealthBarBack->getPosition());
 

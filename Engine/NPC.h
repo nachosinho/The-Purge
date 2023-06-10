@@ -17,11 +17,13 @@ public:
 	NPC(void);
 
 	int getHealth(void) { return this->m_Health; }
-	
+
 	void setHealth(int);
 
+	Animation* getCurrentAnimation(void) { return this->m_CurrentAnimation; }
+
 	virtual void loadAnimations(void) = 0;
-	void addAnimation(string, Animation*);
+	void addAnimation(Animation*);
 	void setAnimation(string);
 
 	virtual void render(void) = 0;
