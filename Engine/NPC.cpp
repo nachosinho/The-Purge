@@ -1,7 +1,9 @@
 #include "NPC.h"
 #include "GameManager.h"
 
-NPC::NPC(void) {
+NPC::NPC(void)
+	: m_MaxHealth(100), m_Health(100)
+{
 	this->m_CurrentAnimation = nullptr;
 	this->m_GameManager = nullptr;
 	this->m_HealthBar = nullptr;
@@ -11,11 +13,18 @@ NPC::NPC(void) {
 }
 
 void NPC::setHealth(int _value) {
-	if (_value > 100) _value = 100;
 	if (_value < 0) _value = 0;
 
 	this->m_Health = _value;
-	this->m_HealthBar->setPercentage(this->getHealth() / 100.f);
+	this->m_HealthBar->setPercentage(1.f * this->getHealth() / this->m_MaxHealth);
+}
+
+void NPC::setMaxHealth(int _value) {
+	if (_value < 0) _value = 0;
+
+	this->m_MaxHealth = _value;
+	this->m_Health = this->m_MaxHealth;
+	this->m_HealthBar->setPercentage(1.f * this->getHealth() / this->m_MaxHealth);
 }
 
 void NPC::addAnimation(Animation* _animation) {

@@ -1,11 +1,10 @@
 #pragma once
 #include "include.h"
 
-class AmmoInfo {
+class AmmoInfo : public Sprite {
 private:
 	RenderWindow* m_RenderWindow;
 	Texture* m_AmmoTexture;
-	Sprite* m_AmmoSprite;
 	Font* m_AmmoFont;
 	Text* m_AmmoText;
 

@@ -12,7 +12,7 @@ protected:
 	map<string, SFX*>* m_SFXs;
 	Weapon* m_Weapon;
 
-	int m_Health = 100;
+	int m_Health, m_MaxHealth;
 	bool m_Dead = false;
 
 	class GameManager* m_GameManager;
@@ -21,8 +21,10 @@ public:
 	NPC(void);
 
 	int getHealth(void) { return this->m_Health; }
+	int getMaxHealth(void) { return this->m_MaxHealth; }
 
 	void setHealth(int);
+	void setMaxHealth(int);
 
 	Animation* getCurrentAnimation(void) { return this->m_CurrentAnimation; }
 

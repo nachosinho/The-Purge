@@ -33,6 +33,7 @@ void EnemySpawner::update(void) {
 		_enemy->render();
 		if (_enemy->getHealth() <= 0) {
 			_enemy->playSFX("DEATH");
+			this->m_GameManager->getKillCount()->setScore(this->m_GameManager->getKillCount()->getScore() + 1);
 			_enemy = nullptr;
 			delete _enemy;
 			this->m_Enemies->erase(this->m_Enemies->begin() + i);
@@ -41,10 +42,10 @@ void EnemySpawner::update(void) {
 	}
 
 	this->m_ElapsedTime += this->m_GameManager->getClock()->restart().asSeconds() * 10.f;
-	std::cout << m_ElapsedTime << " " << 0.0001f << std::endl;
 	if (this->m_ElapsedTime >= 0.0001f) {
-		this->addEnemy(new Enemy(this->m_GameManager));
-		std::cout << "ENEMY\n";
+		Enemy* newEnemy = new Enemy(this->m_GameManager);
+		newEnemy->setMaxHealth(newEnemy->getMaxHealth() + 10 * ((this->m_GameManager->getKillCount()->getScore() % 10) - 1));
+		this->addEnemy(newEnemy);
 		this->m_ElapsedTime = 0.f;
 	}
 }

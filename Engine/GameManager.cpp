@@ -10,6 +10,7 @@ GameManager::GameManager(void) {
 		this->m_GameState = GAMESTATE::MAINMENU;
 		this->m_Player = nullptr;
 		this->m_Level = nullptr;
+		this->m_KillCount = nullptr;
 		this->m_Menu = new MainMenu(this);
 	} else this->restartGame();
 
@@ -59,11 +60,6 @@ void GameManager::setMenu(Menu* _menu, int _state) {
 	this->m_GameState = _state;
 	delete this->m_Menu;
 	this->m_Menu = _menu;
-
-	if (this->m_GameState == GAMESTATE::PLAYING &&
-		(this->m_Player == nullptr || this->m_Level == nullptr)) {
-		this->m_Level = new Level(this);
-	}
 }
 
 void GameManager::restartGame(void) {
@@ -76,12 +72,16 @@ void GameManager::restartGame(void) {
 	delete this->m_Player;
 	this->m_Player = nullptr;
 
+	delete this->m_KillCount;
+	this->m_KillCount = nullptr;
+
 	delete this->m_Level;
 	this->m_Level = nullptr;
 
 	this->m_GameState = GAMESTATE::PLAYING;
 	this->m_EnemySpawner = new EnemySpawner(this);
 	this->m_Player = new Player(this);
+	this->m_KillCount = new KillCount(this);
 	for (int i = 0; i < 5; i++)
 		this->m_EnemySpawner->addEnemy(new Enemy(this));
 	this->m_Level = new Level(this);
@@ -122,6 +122,10 @@ void GameManager::render() {
 
 		if (this->m_EnemySpawner != nullptr) {
 			this->m_EnemySpawner->update();
+		}
+
+		if (this->m_KillCount != nullptr) {
+			this->m_KillCount->render();
 		}
 		//
 		this->m_Window->display();

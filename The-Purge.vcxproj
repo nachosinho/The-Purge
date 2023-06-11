@@ -157,6 +157,7 @@
     <ClCompile Include="Engine\Enemy.cpp" />
     <ClCompile Include="Engine\EnemySpawner.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="Engine\KillCount.cpp" />
     <ClCompile Include="Engine\Level.cpp" />
     <ClCompile Include="Engine\Rifle.cpp" />
     <ClCompile Include="Engine\HealthBar.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Engine\Enemy.h" />
     <ClInclude Include="Engine\EnemySpawner.h" />
     <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="Engine\KillCount.h" />
     <ClInclude Include="Engine\Level.h" />
     <ClInclude Include="Engine\Menu.h" />
     <ClInclude Include="Engine\Rifle.h" />

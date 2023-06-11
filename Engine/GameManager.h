@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "EnemySpawner.h"
+#include "KillCount.h"
 #include "Level.h"
 #include "../Menus/MenusList.h"
 
@@ -17,6 +18,7 @@ private:
 	EnemySpawner* m_EnemySpawner;
 	Level* m_Level;
 	Menu* m_Menu;
+	KillCount* m_KillCount;
 	//SubMenu* m_SubMenu;
 
 	void loadSettings(void);
@@ -41,6 +43,7 @@ public:
 	Event* getEvent(void) { return this->m_Event; }
 	Clock* getClock(void) { return this->m_Clock; }
 	EnemySpawner* getEnemySpawner(void) { return this->m_EnemySpawner; }
+	KillCount* getKillCount(void) { return this->m_KillCount; }
 
 	void setMenu(Menu*, int);
 	Menu* getMenu(void) { return this->m_Menu; }

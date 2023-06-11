@@ -11,9 +11,8 @@ AmmoInfo::AmmoInfo(Rifle* _rifle, RenderWindow* _renderWindow)
 	if (!this->m_AmmoTexture->loadFromFile("Assets/Textures/Objects/Bullet.png"))
 		return;
 
-	this->m_AmmoSprite = new Sprite;
-	this->m_AmmoSprite->setTexture(*this->m_AmmoTexture);
-	this->m_AmmoSprite->setPosition(10.f, WINDOW_Y - this->m_AmmoSprite->getGlobalBounds().height - 10.f);
+	this->setTexture(*this->m_AmmoTexture);
+	this->setPosition(10.f, WINDOW_Y - this->getGlobalBounds().height - 10.f);
 
 	this->m_AmmoFont = new Font;
 	if (!this->m_AmmoFont->loadFromFile("arial.ttf"))
@@ -24,8 +23,10 @@ AmmoInfo::AmmoInfo(Rifle* _rifle, RenderWindow* _renderWindow)
 	this->m_AmmoText->setCharacterSize(36);
 	this->updateText();
 	this->m_AmmoText->setFillColor(Color(250, 125, 0));
-	this->m_AmmoText->setPosition(this->m_AmmoSprite->getPosition().x + this->m_AmmoSprite->getGlobalBounds().width + 5.f,
-		this->m_AmmoSprite->getPosition().y + this->m_AmmoSprite->getGlobalBounds().height / 2.f - this->m_AmmoText->getGlobalBounds().height);
+	this->m_AmmoText->setOutlineColor(Color::Black);
+	this->m_AmmoText->setOutlineThickness(1.f);
+	this->m_AmmoText->setPosition(this->getPosition().x + this->getGlobalBounds().width + 5.f,
+		this->getPosition().y + this->getGlobalBounds().height / 2.f - this->m_AmmoText->getGlobalBounds().height);
 }
 
 void AmmoInfo::updateText(void) {
@@ -63,12 +64,9 @@ void AmmoInfo::render(void) {
 	if (this->m_Rifle == nullptr)
 		return;	
 
-	if (this->m_AmmoSprite == nullptr)
-		return;
-
 	if (this->m_AmmoText == nullptr)
 		return;
 
-	this->m_RenderWindow->draw(*this->m_AmmoSprite);
+	this->m_RenderWindow->draw(*this);
 	this->m_RenderWindow->draw(*this->m_AmmoText);
 }
