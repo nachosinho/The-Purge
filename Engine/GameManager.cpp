@@ -61,7 +61,6 @@ void GameManager::setMenu(Menu* _menu, int _state) {
 
 	if (this->m_GameState == GAMESTATE::PLAYING){ //&&
 		//(this->m_Player == nullptr || this->m_CurrentLevel == nullptr)) {
-		this->restartGame();
 		//this->m_CurrentLevel = new TestLevel(this);
 	}
 }
@@ -102,17 +101,22 @@ void GameManager::render() {
 		//	this->m_CurrentLevel->manageMusic();
 		//}
 
+		if (this->m_Menu != nullptr) {
+			this->m_Menu->render();
+			this->m_Menu->handleInput();
+		}
+
+		if (this->getGameStatus() == GAMESTATE::PAUSED) {
+			this->m_Window->display();
+			continue;
+		}
+
 		if (this->m_Player != nullptr) {
 			this->m_Player->render();
 		}
 
 		if (this->m_EnemySpawner != nullptr) {
 			this->m_EnemySpawner->update();
-		}
-
-		if (this->m_Menu != nullptr) {
-			this->m_Menu->render();
-			this->m_Menu->handleInput();
 		}
 		//
 		this->m_Window->display();

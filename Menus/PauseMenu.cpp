@@ -4,8 +4,9 @@
 PauseMenu::PauseMenu(GameManager* _gameManager) {
 	this->m_GameManager = _gameManager;
 
-	if (!m_BackgroundTexture.loadFromFile("Assets/Textures/Interface/MainMenu.png"));
+	if (!m_BackgroundTexture.loadFromFile("Assets/Textures/Interface/MainMenu.png"))
 		return;
+
 	this->m_BackgroundSprite.setTexture(this->m_BackgroundTexture);
 	this->m_BackgroundSprite.setColor(Color(0, 0, 0, 153));
 	this->m_BackgroundSprite.setScale(WINDOW_X / this->m_BackgroundSprite.getLocalBounds().width, WINDOW_Y / this->m_BackgroundSprite.getLocalBounds().height);
@@ -40,26 +41,37 @@ PauseMenu::PauseMenu(GameManager* _gameManager) {
 }
 
 void PauseMenu::handleInput(void) {
-	while (this->m_GameManager->getWindow()->pollEvent(*this->m_GameManager->getEvent())) {
-		switch (this->m_GameManager->getEvent()->type) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	Event* _event = this->m_GameManager->getEvent();
+	if (_event == nullptr)
+		return;
+
+	RenderWindow* _window = this->m_GameManager->getWindow();
+	if (_window == nullptr)
+		return;
+
+	while (_window->pollEvent(*_event)) {
+		switch (_event->type) {
 		case Event::Closed:
-			this->m_GameManager->getWindow()->close();
+			_window->close();
 			break;
 
 		case Event::MouseButtonPressed:
-			if (this->m_GameManager->getEvent()->mouseButton.button == Mouse::Left) {
+			if (_event->mouseButton.button == Mouse::Left) {
 
-				Vector2f mousePos = Vector2f(this->m_GameManager->getEvent()->mouseButton.x * 1.0f, this->m_GameManager->getEvent()->mouseButton.y * 1.0f);
+				Vector2f mousePos = Vector2f(_event->mouseButton.x * 1.0f, _event->mouseButton.y * 1.0f);
 				if (this->m_ReturnButton.getGlobalBounds().contains(mousePos))
 					this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
-					this->m_GameManager->getWindow()->close();
+					_window->close();
 			}
 			break;
 
 		case Event::KeyPressed:
-			if (this->m_GameManager->getEvent()->key.code == Keyboard::Escape)
+			if (_event->key.code == Keyboard::Escape)
 				this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
 			break;
 		}

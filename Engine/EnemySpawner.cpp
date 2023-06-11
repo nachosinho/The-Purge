@@ -1,7 +1,9 @@
 #include "EnemySpawner.h"
 #include "GameManager.h"
 
-EnemySpawner::EnemySpawner(GameManager* _gameManager) {
+EnemySpawner::EnemySpawner(GameManager* _gameManager)
+	: m_ElapsedTime(0.f)
+{
 	this->m_GameManager = _gameManager;
 	this->m_Enemies = new vector<Enemy*>;
 }

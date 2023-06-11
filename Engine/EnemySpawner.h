@@ -4,6 +4,7 @@
 class EnemySpawner {
 private:
 	vector<Enemy*>* m_Enemies;
+	float m_ElapsedTime;
 
 	class GameManager* m_GameManager;
 public:

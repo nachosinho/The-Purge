@@ -75,7 +75,8 @@ void MainMenu::handleInput(void) {
 				Vector2f mousePos = Vector2f(_event->mouseButton.x * 1.0f, _event->mouseButton.y * 1.0f);
 				if (this->m_PlayButton.getGlobalBounds().contains(mousePos)) {
 					this->m_Sound.stop();
-					this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
+					this->m_GameManager->restartGame();
+					//this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
 				}
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))

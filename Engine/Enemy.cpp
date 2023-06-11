@@ -57,7 +57,7 @@ void Enemy::moveControl(void) {
 	Vector2f direction = playerPos - this->getPosition();
 	float rotation = atan2(direction.y, direction.x) * 180.f / M_PI;
 
-	sf::Vector2f position = { cos(rotation * M_PI / 180.f) * PLAYER_SPEED / 3.f, sin(rotation * M_PI / 180.f) * PLAYER_SPEED / 3.f };
+	sf::Vector2f position = { cos(rotation * float(M_PI / 180.f)) * PLAYER_SPEED / 3.f, sin(rotation * float(M_PI / 180.f)) * PLAYER_SPEED / 3.f };
 
 	if (this->m_HealthBar->getPosition().y <= 0)
 		this->move(0.f, PLAYER_SPEED);

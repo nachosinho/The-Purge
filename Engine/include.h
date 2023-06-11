@@ -48,4 +48,5 @@ const int FRAMERATE_LIMIT = 60;
 const int FALL_TIME = 200;
 
 const float PLAYER_SPEED = 1.f;
-const float M_PI = 3.14159265358979323846;
+
+const double M_PI = 3.14159265358979323846;
