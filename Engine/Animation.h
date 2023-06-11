@@ -25,5 +25,5 @@ public:
 
 	void resetFrame(void);
 
-	void render(float&);
+	void render(float);
 };

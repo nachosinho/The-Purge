@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Animation.cpp" />
     <ClCompile Include="Engine\Bullet.cpp" />
+    <ClCompile Include="Engine\Enemy.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
     <ClCompile Include="Engine\HealthBar.cpp" />
     <ClCompile Include="Engine\NPC.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h" />
     <ClInclude Include="Engine\Bullet.h" />
+    <ClInclude Include="Engine\Enemy.h" />
     <ClInclude Include="Engine\GameManager.h" />
     <ClInclude Include="Engine\HealthBar.h" />
     <ClInclude Include="Engine\include.h" />

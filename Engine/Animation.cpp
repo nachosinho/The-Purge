@@ -11,7 +11,7 @@ Animation::Animation(NPC* _npc, string _name, string _filename, Vector2i _frameS
 		return;
 }
 
-void Animation::render(float& _deltaTime) {
+void Animation::render(float _deltaTime) {
 	if (this->m_NPC == nullptr)
 		return;
 

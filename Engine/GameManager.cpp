@@ -59,12 +59,27 @@ void GameManager::restartGame(void) {
 	//delete this->m_Menu;
 	delete this->m_Player;
 	this->m_Player = nullptr;
+
+	delete this->m_Enemies;
+	this->m_Enemies = nullptr;
 	//delete this->m_CurrentLevel;
 
 	//this->m_Menu = nullptr;
 	this->m_GameState = GAMESTATE::PLAYING;
 	this->m_Player = new Player(this);
+	this->m_Enemies = new vector<Enemy*>;
+	this->addEnemy(new Enemy(this));
 	//this->m_CurrentLevel = new TestLevel(this);
+}
+
+void GameManager::addEnemy(Enemy* _enemy) {
+	if (this->m_Enemies == nullptr)
+		return;
+
+	if (_enemy == nullptr)
+		return;
+
+	this->m_Enemies->push_back(_enemy);
 }
 
 void GameManager::render() {
@@ -85,6 +100,11 @@ void GameManager::render() {
 
 		if (this->m_Player != nullptr) {
 			this->m_Player->render();
+		}
+
+		if (this->m_Enemies != nullptr) {
+			for (Enemy* _enemy : *this->m_Enemies)
+				_enemy->render();
 		}
 
 		//if (this->m_Menu != nullptr) {

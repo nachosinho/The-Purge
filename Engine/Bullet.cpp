@@ -15,16 +15,17 @@ Bullet::Bullet(Weapon* _weapon)
 	this->setScale(0.5f, 0.5f);
 	this->setRotation(this->m_Weapon->getOwner()->getRotation() + 90.f);
 
-	float angle = this->m_Weapon->getOwner()->getRotation();
-	Vector2f distance = { 256.f, 128.f };
-	float offsetX = cos(angle * M_PI / 180.f) * distance.x * this->m_Weapon->getOwner()->getScale().x;
-	float offsetY = sin(angle * M_PI / 180.f) * distance.y * this->m_Weapon->getOwner()->getScale().y;
-	float playerX = this->m_Weapon->getOwner()->getPosition().x;
-	float playerY = this->m_Weapon->getOwner()->getPosition().y;
-	float spriteX = playerX + offsetX;
-	float spriteY = playerY + offsetY;
+	float r = ((256.f * this->m_Weapon->getOwner()->getScale().x) * (256.f * this->m_Weapon->getOwner()->getScale().x)) + ((128.f * this->m_Weapon->getOwner()->getScale().y) * (128.f * this->m_Weapon->getOwner()->getScale().y));
+	float a = tan(this->m_Weapon->getOwner()->getRotation());
+	float y = sqrt((a * r) / (1 + a));
+	float x = y / a;
 
-	this->setPosition(spriteX, spriteY);
+	Vector2f position = {
+		this->m_Weapon->getOwner()->getPosition().x + 256.f * (this->m_Weapon->getOwner()->getScale().x) * cos(this->m_Weapon->getOwner()->getRotation()),
+		this->m_Weapon->getOwner()->getPosition().y + 128.f * (this->m_Weapon->getOwner()->getScale().y) * sin(this->m_Weapon->getOwner()->getRotation())
+	};
+
+	this->setPosition(position);
 }
 
 void Bullet::update(RenderWindow* _rWindow) {
@@ -35,6 +36,5 @@ void Bullet::update(RenderWindow* _rWindow) {
 		float(this->getPosition().y - (cos(this->getRotation() * M_PI / 180.f) * this->m_Velocity)) };
 
 	this->setPosition(position.x, position.y);
-	std::cout << this->getPosition().x << " " << this->getPosition().y << "\n";
 	_rWindow->draw(*this);
 }

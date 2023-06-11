@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Enemy.h"
 
 class GameManager {
 private:
@@ -11,6 +12,7 @@ private:
 	Clock* m_Clock;
 
 	Player* m_Player;
+	vector<Enemy*>* m_Enemies;
 	//Level* m_Level;
 	//Menu* m_Menu;
 	//SubMenu* m_SubMenu;
@@ -35,6 +37,8 @@ public:
 	RenderWindow* getWindow(void) { return this->m_Window; }
 	int getGameStatus(void) { return this->m_GameState; }
 	Clock* getClock(void) { return this->m_Clock; }
+
+	void addEnemy(Enemy*);
 
 	//void setMenu(Menu*, int);
 	//void getMenu(void) { return this->m_Menu; }

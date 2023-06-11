@@ -2,7 +2,7 @@
 #include "Weapon.h"
 
 Weapon::Weapon(GameManager* _gameManager, Player* _player)
-	: m_MaxAmmo(10), m_Ammo(10), m_Damage(1), m_MaxTrace(0.0025f), m_Trace(0.0025f), m_Bullets()
+	: m_MaxAmmo(10), m_Ammo(10), m_Damage(1), m_MaxTrace(0.00025f), m_Trace(0.00025f), m_Bullets()
 {
 	this->m_GameManager = _gameManager;
 	this->m_Owner = _player;

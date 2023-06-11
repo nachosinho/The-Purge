@@ -84,9 +84,7 @@ void Player::render(void) {
 
 	this->moveControl();
 
-	float deltaTime = this->m_GameManager->getClock()->restart().asSeconds();
-	std::cout << m_CurrentAnimation->getName() << std::endl;
-	this->m_CurrentAnimation->render(deltaTime);
+	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds());
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
 	this->m_Weapon->update();
