@@ -19,7 +19,7 @@ Enemy::Enemy(GameManager* _gameManager) {
 	this->setPosition(Vector2f(startingPosition));
 
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
-	//this->m_HealthBar->setColor(Color::Green);
+	this->setVelocity(0.25f);
 
 	this->loadSFXs();
 	this->loadAnimations();
@@ -57,12 +57,12 @@ void Enemy::moveControl(void) {
 	Vector2f direction = playerPos - this->getPosition();
 	float rotation = atan2(direction.y, direction.x) * 180.f / M_PI;
 
-	sf::Vector2f position = { cos(rotation * float(M_PI / 180.f)) * PLAYER_SPEED / 3.f, sin(rotation * float(M_PI / 180.f)) * PLAYER_SPEED / 3.f };
+	sf::Vector2f position = { cos(rotation * float(M_PI / 180.f)) * this->getVelocity(), sin(rotation * float(M_PI / 180.f)) * this->getVelocity() };
 
 	if (this->m_HealthBar->getPosition().y <= 0)
-		this->move(0.f, PLAYER_SPEED);
+		this->move(0.f, this->getVelocity());
 	if (this->m_HealthBar->getPosition().y + this->m_HealthBar->getSize().y + this->getGlobalBounds().height >= WINDOW_Y)
-		this->move(0.f, -PLAYER_SPEED);
+		this->move(0.f, -this->getVelocity());
 
 	RectangleShape hitbox;
 	FloatRect playerHitbox = this->m_GameManager->getPlayer()->getGlobalBounds();
@@ -76,7 +76,7 @@ void Enemy::moveControl(void) {
 	hitbox.setPosition(playerPos);
 	hitbox.setSize({20, 20});
 
-	this->m_GameManager->getWindow()->draw(hitbox);
+	//this->m_GameManager->getWindow()->draw(hitbox);
 
 	sf::Vector2f distanceVec = { abs(hitbox.getPosition().x - this->getPosition().x),
 		abs(hitbox.getPosition().y - this->getPosition().y - this->getGlobalBounds().height / 2.f) };

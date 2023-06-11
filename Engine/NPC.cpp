@@ -2,7 +2,7 @@
 #include "GameManager.h"
 
 NPC::NPC(void)
-	: m_MaxHealth(100), m_Health(100)
+	: m_MaxHealth(100), m_Health(100), m_Velocity(1.f)
 {
 	this->m_CurrentAnimation = nullptr;
 	this->m_GameManager = nullptr;
@@ -10,6 +10,12 @@ NPC::NPC(void)
 	this->m_Weapon = nullptr;
 	this->m_Animations = new map<string, Animation*>;
 	this->m_SFXs = new map<string, SFX*>;
+}
+
+void NPC::setVelocity(float _value) {
+	if (_value < 0.f) _value = 0.f;
+
+	this->m_Velocity = _value;
 }
 
 void NPC::setHealth(int _value) {

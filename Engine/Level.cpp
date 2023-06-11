@@ -10,6 +10,11 @@ Level::Level(GameManager* _gameManager) {
 
 void Level::setSFX(SFX* _sfx) {
 	this->m_SFX = _sfx;
+
+	if (this->m_SFX == nullptr)
+		return;
+
+	this->m_SFX->setLoop(true);
 }
 
 void Level::addTexture(string _texture) {

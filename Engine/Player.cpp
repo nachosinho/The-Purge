@@ -56,23 +56,23 @@ void Player::moveControl(void) {
 	this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
-		this->move(0.f, -PLAYER_SPEED);
+		this->move(0.f, -this->getVelocity());
 	if (Keyboard::isKeyPressed(Keyboard::S))
-		this->move(0.f, PLAYER_SPEED);
+		this->move(0.f, this->getVelocity());
 	if (Keyboard::isKeyPressed(Keyboard::A))
-		this->move(-PLAYER_SPEED, 0.f);
+		this->move(-this->getVelocity(), 0.f);
 	if (Keyboard::isKeyPressed(Keyboard::D))
-		this->move(PLAYER_SPEED, 0.f);
+		this->move(this->getVelocity(), 0.f);
 
 	if (this->m_HealthBar->getPosition().x <= 0)
-		this->move(PLAYER_SPEED, 0.f);
+		this->move(this->getVelocity(), 0.f);
 	if (this->m_HealthBar->getPosition().x + this->m_HealthBar->getSize().x >= WINDOW_X)
-		this->move(-PLAYER_SPEED, 0.f);
+		this->move(-this->getVelocity(), 0.f);
 
 	if (this->m_HealthBar->getPosition().y <= 0)
-		this->move(0.f, PLAYER_SPEED);
+		this->move(0.f, this->getVelocity());
 	if (this->m_HealthBar->getPosition().y + this->m_HealthBar->getSize().y + this->getGlobalBounds().height >= WINDOW_Y)
-		this->move(0.f, -PLAYER_SPEED);
+		this->move(0.f, -this->getVelocity());
 
 	else if (Keyboard::isKeyPressed(Keyboard::R))
 		dynamic_cast<Rifle*>(this->m_Weapon)->reload();
@@ -97,7 +97,7 @@ void Player::render(void) {
 
 	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds());
 	this->m_GameManager->getWindow()->draw(*this);
-	this->m_HealthBar->render();
 	this->m_Weapon->update();
+	this->m_HealthBar->render();
 	this->m_AmmoInfo->render();
 }

@@ -44,7 +44,8 @@ void EnemySpawner::update(void) {
 	this->m_ElapsedTime += this->m_GameManager->getClock()->restart().asSeconds() * 10.f;
 	if (this->m_ElapsedTime >= 0.0001f) {
 		Enemy* newEnemy = new Enemy(this->m_GameManager);
-		newEnemy->setMaxHealth(newEnemy->getMaxHealth() + 10 * ((this->m_GameManager->getKillCount()->getScore() % 10) - 1));
+		newEnemy->setMaxHealth(newEnemy->getMaxHealth() + 10 * ((this->m_GameManager->getKillCount()->getScore() / 5.f) - 1));
+		newEnemy->setVelocity(newEnemy->getVelocity() + 0.01f * ((this->m_GameManager->getKillCount()->getScore() / 5.f) - 1));
 		this->addEnemy(newEnemy);
 		this->m_ElapsedTime = 0.f;
 	}

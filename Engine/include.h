@@ -12,6 +12,7 @@ using sf::Font;
 using sf::Texture;
 using sf::Sprite;
 using sf::RectangleShape;
+using sf::CircleShape;
 using sf::RenderWindow;
 using sf::VideoMode;
 using sf::Clock;
@@ -46,7 +47,5 @@ const int WINDOW_X = 800;
 const int WINDOW_Y = 600;
 const int FRAMERATE_LIMIT = 60;
 const int FALL_TIME = 200;
-
-const float PLAYER_SPEED = 1.f;
 
 const double M_PI = 3.14159265358979323846;

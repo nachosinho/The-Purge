@@ -13,6 +13,7 @@ protected:
 	Weapon* m_Weapon;
 
 	int m_Health, m_MaxHealth;
+	float m_Velocity;
 	bool m_Dead = false;
 
 	class GameManager* m_GameManager;
@@ -20,9 +21,11 @@ protected:
 public:
 	NPC(void);
 
+	float getVelocity(void) { return this->m_Velocity; }
 	int getHealth(void) { return this->m_Health; }
 	int getMaxHealth(void) { return this->m_MaxHealth; }
 
+	void setVelocity(float);
 	void setHealth(int);
 	void setMaxHealth(int);
 
