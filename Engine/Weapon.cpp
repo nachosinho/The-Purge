@@ -2,16 +2,16 @@
 #include "Weapon.h"
 
 Weapon::Weapon(GameManager* _gameManager, Player* _player)
-	: m_MaxAmmo(10), m_Ammo(10), m_Damage(1), m_MaxTrace(0.00025f), m_Trace(0.00025f), m_Bullets()
+	: m_MaxAmmo(10), m_Ammo(10), m_Damage(1), m_MaxTrace(0.0025f), m_Trace(0.0025f), m_Bullets()
 {
 	this->m_GameManager = _gameManager;
+	this->m_Owner = _player;
+
 	if (m_GameManager == nullptr)
 		return;
 
-	this->m_Owner = _player;
 	if (this->getOwner() == nullptr)
 		return;
-	std::cout << "Owner\n";
 
 	this->m_Bullets = new vector<Bullet*>;
 }
@@ -28,12 +28,11 @@ void Weapon::shoot(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	if (anim->getName() != "WALK" &&
+	if (anim->getName() != "MOVE" &&
 		anim->getName() != "IDLE")
 		return;
 
 	this->getOwner()->setAnimation("ATTACK");
-	std::cout << "Bullet\n";
 	this->m_Bullets->push_back(new Bullet(this));
 }
 
@@ -43,7 +42,7 @@ void Weapon::reload(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	if (anim->getName() != "WALK" &&
+	if (anim->getName() != "MOVE" &&
 		anim->getName() != "IDLE")
 		return;
 
@@ -77,6 +76,7 @@ void Weapon::update(void) {
 			this->m_Trace = 0.f;
 		}
 	}
+
 	for (int i = 0, end = this->m_Bullets->size(); i < end; i++) {
 		if (i >= end) break;
 

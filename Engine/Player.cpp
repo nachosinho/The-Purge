@@ -23,7 +23,21 @@ void Player::loadAnimations(void) {
 	this->setAnimation("IDLE");
 }
 
+void Player::animationControl(void) {
+	if (this->getCurrentAnimation()->getName() == "ATTACK" ||
+		this->getCurrentAnimation()->getName() == "RELOAD")
+		return;
+
+	if (Keyboard::isKeyPressed(Keyboard::W) ||
+		Keyboard::isKeyPressed(Keyboard::S) ||
+		Keyboard::isKeyPressed(Keyboard::A) ||
+		Keyboard::isKeyPressed(Keyboard::D))
+		this->setAnimation("MOVE");
+	else this->setAnimation("IDLE");
+}
+
 void Player::moveControl(void) {
+	this->animationControl();
 	Vector2f mousePosition = Vector2f(Mouse::getPosition(*this->m_GameManager->getWindow()));
 	Vector2f playerPosition = this->getPosition();
 	Vector2f direction = mousePosition - playerPosition;
@@ -50,8 +64,6 @@ void Player::moveControl(void) {
 	if (this->m_HealthBar->getPosition().y + this->m_HealthBar->getSize().y + this->getGlobalBounds().height >= WINDOW_Y)
 		this->move(0.f, -PLAYER_SPEED);
 
-	if (Keyboard::isKeyPressed(Keyboard::Space))
-		this->setAnimation("MOVE");
 	else if (Keyboard::isKeyPressed(Keyboard::R))
 		this->m_Weapon->reload();
 	else if (Mouse::isButtonPressed(Mouse::Left)) {
@@ -73,7 +85,7 @@ void Player::render(void) {
 	this->moveControl();
 
 	float deltaTime = this->m_GameManager->getClock()->restart().asSeconds();
-	//std::cout << m_CurrentAnimation->getFrame().left << std::endl;
+	std::cout << m_CurrentAnimation->getName() << std::endl;
 	this->m_CurrentAnimation->render(deltaTime);
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();

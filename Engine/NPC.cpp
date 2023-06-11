@@ -30,6 +30,7 @@ void NPC::setAnimation(string _mapKey) {
 	}
 
 	else if (this->m_CurrentAnimation->getName() != _mapKey) {
+		this->m_CurrentAnimation->resetFrame();
 		this->m_CurrentAnimation = (*m_Animations)[_mapKey];
 		this->setTexture(*this->m_CurrentAnimation->getTexture());
 		this->setTextureRect(this->m_CurrentAnimation->getFrameRect());

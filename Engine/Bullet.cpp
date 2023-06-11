@@ -11,10 +11,20 @@ Bullet::Bullet(Weapon* _weapon)
 	this->m_Weapon = _weapon;
 
 	this->setTexture(*this->m_Texture);
-	this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
+	//this->setOrigin(this->getGlobalBounds().width / 2.f, this->getGlobalBounds().height / 2.f);
 	this->setScale(0.5f, 0.5f);
-	this->setPosition(this->m_Weapon->getOwner()->getPosition());
 	this->setRotation(this->m_Weapon->getOwner()->getRotation() + 90.f);
+
+	float angle = this->m_Weapon->getOwner()->getRotation();
+	Vector2f distance = { 256.f, 128.f };
+	float offsetX = cos(angle * M_PI / 180.f) * distance.x * this->m_Weapon->getOwner()->getScale().x;
+	float offsetY = sin(angle * M_PI / 180.f) * distance.y * this->m_Weapon->getOwner()->getScale().y;
+	float playerX = this->m_Weapon->getOwner()->getPosition().x;
+	float playerY = this->m_Weapon->getOwner()->getPosition().y;
+	float spriteX = playerX + offsetX;
+	float spriteY = playerY + offsetY;
+
+	this->setPosition(spriteX, spriteY);
 }
 
 void Bullet::update(RenderWindow* _rWindow) {

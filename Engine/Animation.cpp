@@ -24,3 +24,7 @@ void Animation::render(float& _deltaTime) {
 		this->m_NPC->setTextureRect(this->getFrameRect());
 	}
 }
+
+void Animation::resetFrame(void) {
+	this->m_CurrentFrame = 0;
+}

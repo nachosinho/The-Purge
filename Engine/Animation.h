@@ -23,5 +23,7 @@ public:
 		return { m_CurrentFrame % 8 * m_FrameSize.x, m_CurrentFrame / 8 * m_FrameSize.y,
 								m_FrameSize.x, m_FrameSize.y };}
 
+	void resetFrame(void);
+
 	void render(float&);
 };
