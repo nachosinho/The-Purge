@@ -2,20 +2,24 @@
 #include "Bullet.h"
 
 class Weapon {
-private:
-	float m_Trace, m_MaxTrace;
-	int m_Damage, m_Ammo, m_MaxAmmo;
-	vector<Bullet*>* m_Bullets;
+protected:
+	float m_Cooldown, m_Delay;
+	int m_Damage;
 
 	class GameManager* m_GameManager;
-	class Player* m_Owner;
+	class NPC* m_Owner;
 public:
-	Weapon(class GameManager*, class Player*);
+	Weapon(class GameManager*, class NPC*);
 
-	class Player* getOwner(void) { return this->m_Owner; }
+	int getDamage(void) { return this->m_Damage; }
+	float getCooldown(void) { return this->m_Cooldown; }
+	float getDelay(void) { return this->m_Delay; }
 
-	void reload(void);
-	void shoot(void);
+	void setDamage(int);
+	void setCooldown(float);
+	void setDelay(float);
 
-	void update(void);
+	class NPC* getOwner(void) { return this->m_Owner; }
+
+	virtual void update(void) = 0;
 };

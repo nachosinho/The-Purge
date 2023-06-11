@@ -1,5 +1,6 @@
 #pragma once
 #include "HealthBar.h"
+#include "Weapon.h"
 #include "Animation.h"
 
 class NPC : public Sprite {
@@ -7,6 +8,7 @@ protected:
 	HealthBar* m_HealthBar;
 	Animation* m_CurrentAnimation;
 	map<string, Animation*>*  m_Animations;
+	Weapon* m_Weapon;
 
 	int m_Health = 100;
 	bool m_Dead = false;

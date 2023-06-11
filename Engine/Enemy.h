@@ -1,4 +1,5 @@
 #pragma once
+#include "Melee.h"
 #include "NPC.h"
 
 class Enemy : public NPC {

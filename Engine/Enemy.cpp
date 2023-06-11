@@ -3,6 +3,7 @@
 
 Enemy::Enemy(GameManager* _gameManager) {
 	this->m_GameManager = _gameManager;
+	this->m_Weapon = new Melee(_gameManager, this);
 
 	this->setScale(0.25f, 0.25f);
 	//this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
@@ -19,23 +20,21 @@ void Enemy::loadAnimations(void) {
 	this->addAnimation(new Animation(this, "ATTACK", "Assets/Textures/Enemy/Attack.png", { 318, 294 }, 9));
 	this->addAnimation(new Animation(this, "MOVE", "Assets/Textures/Enemy/Walk.png", { 288, 311 }, 17));
 
-	this->setAnimation("MOVE");
+	this->setAnimation("IDLE");
 }
 
 void Enemy::animationControl(void) {
 	if (this->getCurrentAnimation()->getName() == "ATTACK")
 		return;
 
-	if (Keyboard::isKeyPressed(Keyboard::W) ||
-		Keyboard::isKeyPressed(Keyboard::S) ||
-		Keyboard::isKeyPressed(Keyboard::A) ||
-		Keyboard::isKeyPressed(Keyboard::D))
-		this->setAnimation("MOVE");
-	else this->setAnimation("IDLE");
+	this->setAnimation("MOVE");
 }
 
 void Enemy::moveControl(void) {
 	this->animationControl();
+
+	if (this->getCurrentAnimation()->getName() == "ATTACK")
+		return;
 
 	Vector2f playerPos = { this->m_GameManager->getPlayer()->getPosition().x + this->m_GameManager->getPlayer()->getGlobalBounds().width / 4.f,
 	this->m_GameManager->getPlayer()->getPosition().y + this->m_GameManager->getPlayer()->getGlobalBounds().height / 4.f };
@@ -44,14 +43,19 @@ void Enemy::moveControl(void) {
 
 	sf::Vector2f position = { cos(rotation * M_PI / 180.f) * PLAYER_SPEED / 3.f, sin(rotation * M_PI / 180.f) * PLAYER_SPEED / 3.f };
 
-	this->setRotation(rotation);
-	this->move(position);
-
 	if (this->m_HealthBar->getPosition().y <= 0)
 		this->move(0.f, PLAYER_SPEED);
 	if (this->m_HealthBar->getPosition().y + this->m_HealthBar->getSize().y + this->getGlobalBounds().height >= WINDOW_Y)
 		this->move(0.f, -PLAYER_SPEED);
-	//else this->setAnimation("IDLE");
+
+	sf::Vector2f distanceVec = { abs(playerPos.x - this->getPosition().x),
+		abs(playerPos.y - this->getPosition().y - this->m_GameManager->getPlayer()->getGlobalBounds().height / 4.f) };
+	float distanceFloat = sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
+
+	if (distanceFloat > 50.f) {
+		this->setRotation(rotation);
+		this->move(position);
+	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());
 }
 
 void Enemy::render(void) {
@@ -62,8 +66,9 @@ void Enemy::render(void) {
 		return;
 
 	this->moveControl();
-	std::cout << m_CurrentAnimation->getCurrentFrame() << "\n";
-	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 100.f);
+
+	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 5000.f);
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
+	this->m_Weapon->update();
 }

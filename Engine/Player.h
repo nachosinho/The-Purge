@@ -1,10 +1,9 @@
 #pragma once
 #include "NPC.h"
-#include "Weapon.h"
+#include "Rifle.h"
 
 class Player : public NPC {
 private:
-	Weapon* m_Weapon;
 public:
 	Player(class GameManager*);
 	
