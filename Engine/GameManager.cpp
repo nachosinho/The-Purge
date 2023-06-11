@@ -60,27 +60,17 @@ void GameManager::restartGame(void) {
 	delete this->m_Player;
 	this->m_Player = nullptr;
 
-	delete this->m_Enemies;
-	this->m_Enemies = nullptr;
+	delete this->m_EnemySpawner;
+	this->m_EnemySpawner = nullptr;
 	//delete this->m_CurrentLevel;
 
 	//this->m_Menu = nullptr;
 	this->m_GameState = GAMESTATE::PLAYING;
 	this->m_Player = new Player(this);
-	this->m_Enemies = new vector<Enemy*>;
+	this->m_EnemySpawner = new EnemySpawner(this);
 	for (int i = 0; i < 5; i++)
-		this->addEnemy(new Enemy(this));
+		this->m_EnemySpawner->addEnemy(new Enemy(this));
 	//this->m_CurrentLevel = new TestLevel(this);
-}
-
-void GameManager::addEnemy(Enemy* _enemy) {
-	if (this->m_Enemies == nullptr)
-		return;
-
-	if (_enemy == nullptr)
-		return;
-
-	this->m_Enemies->push_back(_enemy);
 }
 
 void GameManager::render() {
@@ -103,20 +93,8 @@ void GameManager::render() {
 			this->m_Player->render();
 		}
 
-		if (this->m_Enemies != nullptr) {
-			for (int i = 0, end = this->m_Enemies->size(); i < end; i++) {
-				Enemy* _enemy = (*this->m_Enemies)[i];
-				if (_enemy == nullptr)
-					continue;
-
-				_enemy->render();
-				if (_enemy->getHealth() <= 0) {
-					_enemy = nullptr;
-					delete _enemy;
-					this->m_Enemies->erase(this->m_Enemies->begin() + i);
-					continue;
-				}
-			}
+		if (this->m_EnemySpawner != nullptr) {
+			this->m_EnemySpawner->update();
 		}
 
 		//if (this->m_Menu != nullptr) {

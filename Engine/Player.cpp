@@ -11,6 +11,9 @@ Player::Player(GameManager* _gameManager) {
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
 	this->m_HealthBar->setColor(Color::Green);
 
+	this->m_AmmoInfo = new AmmoInfo(dynamic_cast<Rifle*>(this->m_Weapon), this->m_GameManager->getWindow());
+	this->m_AmmoInfo->updateText();
+
 	this->loadAnimations();
 }
 
@@ -66,10 +69,8 @@ void Player::moveControl(void) {
 
 	else if (Keyboard::isKeyPressed(Keyboard::R))
 		dynamic_cast<Rifle*>(this->m_Weapon)->reload();
-	else if (Mouse::isButtonPressed(Mouse::Left)) {
+	else if (Mouse::isButtonPressed(Mouse::Left))
 		dynamic_cast<Rifle*>(this->m_Weapon)->shoot();
-	}
-	//else this->setAnimation("IDLE");
 }
 
 void Player::render(void) {
@@ -82,10 +83,14 @@ void Player::render(void) {
 	if (this->m_Weapon == nullptr)
 		return;
 
+	if (this->m_AmmoInfo == nullptr)
+		return;
+
 	this->moveControl();
 
 	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds());
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
 	this->m_Weapon->update();
+	this->m_AmmoInfo->render();
 }

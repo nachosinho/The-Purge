@@ -7,12 +7,13 @@ Enemy::Enemy(GameManager* _gameManager) {
 
 	this->setScale(0.25f, 0.25f);
 	//this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
-	Vector2i startingPosition = { rand() % 2, rand() % 2 };
+	Vector2i rollPosition = { rand() % 2, rand() % 2 };
+	Vector2f startingPosition;
 
-	if (startingPosition.x) startingPosition.x = WINDOW_X + rand() % 200 + 50.f;
+	if (rollPosition.x) startingPosition.x = WINDOW_X + rand() % 200 + 50.f;
 	else startingPosition.x = -(rand() % 200) - 50.f;
 
-	if (startingPosition.y) startingPosition.y = WINDOW_Y + rand() % 200 + 50.f;
+	if (rollPosition.y) startingPosition.y = WINDOW_Y + rand() % 200 + 50.f;
 	else startingPosition.y = -(rand() % 200) - 50.f;
 
 	this->setPosition(Vector2f(startingPosition));

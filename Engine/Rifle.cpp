@@ -14,6 +14,16 @@ Rifle::Rifle(GameManager* _gameManager, Player* _player)
 	this->setDamage(25);
 }
 
+void Rifle::setAmmo(int _value) {
+	if (_value < 0) _value = 0;
+	this->m_Ammo = _value;
+}
+
+void Rifle::setMaxAmmo(int _value) {
+	if (_value < 0) _value = 0;
+	this->m_MaxAmmo = _value;
+}
+
 void Rifle::shoot(void) {
 	if (this->m_GameManager == nullptr)
 		return;
@@ -67,6 +77,7 @@ void Rifle::update(void) {
 		if (anim->getCurrentFrame() == anim->getFramesCount() - 1) {
 			this->getOwner()->setAnimation("IDLE");
 			this->m_Ammo = this->m_MaxAmmo;
+			dynamic_cast<Player*>(this->getOwner())->getAmmoInfo()->updateText();
 		}
 	}
 
@@ -75,6 +86,7 @@ void Rifle::update(void) {
 			this->getOwner()->setAnimation("IDLE");
 			this->m_Ammo--;
 			this->m_Cooldown = 0.f;
+			dynamic_cast<Player*>(this->getOwner())->getAmmoInfo()->updateText();
 		}
 	}
 
@@ -96,8 +108,8 @@ void Rifle::update(void) {
 			break;
 		}
 
-		for (int j = 0, jend = this->m_GameManager->getEnemies()->size(); j < jend; j++) {
-			Enemy* _enemy = (*this->m_GameManager->getEnemies())[j];
+		for (int j = 0, jend = this->m_GameManager->getEnemySpawner()->getEnemies()->size(); j < jend; j++) {
+			Enemy* _enemy = (*this->m_GameManager->getEnemySpawner()->getEnemies())[j];
 			if (_enemy == nullptr)
 				break;
 
