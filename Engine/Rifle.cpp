@@ -90,6 +90,9 @@ void Rifle::update(void) {
 		}
 	}
 
+	if (this->m_GameManager->getEnemySpawner() == nullptr)
+		return;
+
 	for (int i = 0, end = this->m_Bullets->size(); i < end; i++) {
 		if (i >= end) break;
 

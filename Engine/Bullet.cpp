@@ -15,14 +15,10 @@ Bullet::Bullet(Weapon* _weapon)
 	this->setScale(0.5f, 0.5f);
 	this->setRotation(this->m_Weapon->getOwner()->getRotation() + 90.f);
 
-	float r = ((256.f * this->m_Weapon->getOwner()->getScale().x) * (256.f * this->m_Weapon->getOwner()->getScale().x)) + ((128.f * this->m_Weapon->getOwner()->getScale().y) * (128.f * this->m_Weapon->getOwner()->getScale().y));
-	float a = tan(this->m_Weapon->getOwner()->getRotation());
-	float y = sqrt((a * r) / (1 + a));
-	float x = y / a;
 
 	Vector2f position = {
-		this->m_Weapon->getOwner()->getPosition().x + 256.f * (this->m_Weapon->getOwner()->getScale().x) * cos(this->m_Weapon->getOwner()->getRotation()),
-		this->m_Weapon->getOwner()->getPosition().y + 128.f * (this->m_Weapon->getOwner()->getScale().y) * sin(this->m_Weapon->getOwner()->getRotation())
+		this->m_Weapon->getOwner()->getPosition().x + 256.f * (this->m_Weapon->getOwner()->getScale().x),
+		this->m_Weapon->getOwner()->getPosition().y + 128.f * (this->m_Weapon->getOwner()->getScale().y)
 	};
 
 	this->setPosition(position);

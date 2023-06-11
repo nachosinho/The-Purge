@@ -43,8 +43,6 @@ void AmmoInfo::updateText(void) {
 	this->setMin(rifle->getAmmo());
 	this->setMax(rifle->getMaxAmmo());
 
-	std::cout << this->m_Min << " " << this->m_Max << "\n";
-
 	string text;
 	text += to_string(this->m_Min) + "/" + to_string(this->m_Max);
 	this->m_AmmoText->setString(text);

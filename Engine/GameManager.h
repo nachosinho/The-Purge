@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "EnemySpawner.h"
+#include "../Menus/MenusList.h"
 
 class GameManager {
 private:
@@ -14,7 +15,7 @@ private:
 	Player* m_Player;
 	EnemySpawner* m_EnemySpawner;
 	//Level* m_Level;
-	//Menu* m_Menu;
+	Menu* m_Menu;
 	//SubMenu* m_SubMenu;
 
 	void loadSettings(void);
@@ -36,13 +37,14 @@ public:
 
 	RenderWindow* getWindow(void) { return this->m_Window; }
 	int getGameStatus(void) { return this->m_GameState; }
+	Event* getEvent(void) { return this->m_Event; }
 	Clock* getClock(void) { return this->m_Clock; }
 	EnemySpawner* getEnemySpawner(void) { return this->m_EnemySpawner; }
 
-	//void setMenu(Menu*, int);
-	//void getMenu(void) { return this->m_Menu; }
+	void setMenu(Menu*, int);
+	Menu* getMenu(void) { return this->m_Menu; }
 	//void setSubMenu(Menu*, int);
-	//void getSubMenu(void) { return this->m_Menu; }
+	//Menu* getSubMenu(void) { return this->m_Menu; }
 
 	void restartGame(void);
 };
