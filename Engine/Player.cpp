@@ -14,7 +14,14 @@ Player::Player(GameManager* _gameManager) {
 	this->m_AmmoInfo = new AmmoInfo(dynamic_cast<Rifle*>(this->m_Weapon), this->m_GameManager->getWindow());
 	this->m_AmmoInfo->updateText();
 
+	this->loadSFXs();
 	this->loadAnimations();
+}
+
+void Player::loadSFXs(void) {
+	this->addSFX(new SFX("ATTACK", "Assets/Sounds/SFX/Rifle_Shot.ogg"));
+	this->addSFX(new SFX("RELOAD", "Assets/Sounds/SFX/Rifle_Reload.ogg"));
+	this->addSFX(new SFX("EMPTY", "Assets/Sounds/SFX/Rifle_Empty.ogg"));
 }
 
 void Player::loadAnimations(void) {

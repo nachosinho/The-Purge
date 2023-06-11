@@ -8,6 +8,7 @@ public:
 	Enemy(class GameManager*);
 
 	void loadAnimations(void);
+	void loadSFXs(void);
 	void animationControl(void);
 	void moveControl(void);
 

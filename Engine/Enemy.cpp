@@ -21,7 +21,14 @@ Enemy::Enemy(GameManager* _gameManager) {
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
 	//this->m_HealthBar->setColor(Color::Green);
 
+	this->loadSFXs();
 	this->loadAnimations();
+}
+
+void Enemy::loadSFXs(void) {
+	this->addSFX(new SFX("ATTACK", "Assets/Sounds/SFX/Zombie_Bite.ogg"));
+	this->addSFX(new SFX("WOUND", "Assets/Sounds/SFX/Zombie_Wound.ogg"));
+	this->addSFX(new SFX("DEATH", "Assets/Sounds/SFX/Zombie_Death.ogg"));
 }
 
 void Enemy::loadAnimations(void) {
@@ -60,10 +67,8 @@ void Enemy::moveControl(void) {
 	RectangleShape hitbox;
 	FloatRect playerHitbox = this->m_GameManager->getPlayer()->getGlobalBounds();
 
-
 	hitbox.setPosition(playerHitbox.left, playerHitbox.top);
 	hitbox.setSize(Vector2f(playerHitbox.width, playerHitbox.height));
-
 
 	hitbox.setOutlineColor(Color::Red);
 	hitbox.setOutlineThickness(1.f);

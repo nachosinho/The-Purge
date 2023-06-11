@@ -28,8 +28,10 @@ void Rifle::shoot(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
-	if (this->m_Ammo == 0)
+	if (this->m_Ammo == 0) {
+		this->getOwner()->playSFX("EMPTY");
 		return;
+	}
 
 	if (this->m_Cooldown < this->m_Delay)
 		return;
@@ -42,6 +44,7 @@ void Rifle::shoot(void) {
 
 	this->getOwner()->setAnimation("ATTACK");
 	this->m_Bullets->push_back(new Bullet(this));
+	this->getOwner()->playSFX("ATTACK");
 }
 
 void Rifle::reload(void) {
@@ -55,6 +58,7 @@ void Rifle::reload(void) {
 		return;
 
 	this->getOwner()->setAnimation("RELOAD");
+	this->getOwner()->playSFX("RELOAD");
 }
 
 void Rifle::update(void) {
@@ -124,6 +128,8 @@ void Rifle::update(void) {
 
 			if (_bullet->getGlobalBounds().intersects(enemyHitbox)) {
 				_enemy->setHealth(_enemy->getHealth() - this->getDamage());
+				if (_enemy->getHealth() > 0)
+					_enemy->playSFX("WOUND");
 				_bullet = nullptr;
 				delete _bullet;
 				m_Bullets->erase(m_Bullets->begin() + i);

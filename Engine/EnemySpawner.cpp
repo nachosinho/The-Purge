@@ -30,6 +30,7 @@ void EnemySpawner::update(void) {
 
 		_enemy->render();
 		if (_enemy->getHealth() <= 0) {
+			_enemy->playSFX("DEATH");
 			_enemy = nullptr;
 			delete _enemy;
 			this->m_Enemies->erase(this->m_Enemies->begin() + i);

@@ -10,8 +10,8 @@ Melee::Melee(GameManager* _gameManager, NPC* _player)
 	if (this->getOwner() == nullptr)
 		return;
 
-	this->setDelay(0.f);
-	this->setCooldown(0.f);
+	this->setDelay(0.00005f);
+	this->setCooldown(0.00005f);
 	this->setDamage(15);
 }
 
@@ -33,6 +33,7 @@ void Melee::attack(NPC* _target) {
 
 	this->getOwner()->setAnimation("ATTACK");
 	_target->setHealth(_target->getHealth() - this->getDamage());
+	this->getOwner()->playSFX("ATTACK");
 }
 
 void Melee::update(void) {

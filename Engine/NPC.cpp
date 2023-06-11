@@ -7,6 +7,7 @@ NPC::NPC(void) {
 	this->m_HealthBar = nullptr;
 	this->m_Weapon = nullptr;
 	this->m_Animations = new map<string, Animation*>;
+	this->m_SFXs = new map<string, SFX*>;
 }
 
 void NPC::setHealth(int _value) {
@@ -36,4 +37,14 @@ void NPC::setAnimation(string _mapKey) {
 		this->setTexture(*this->m_CurrentAnimation->getTexture());
 		this->setTextureRect(this->m_CurrentAnimation->getFrameRect());
 	}
+}
+
+void NPC::addSFX(SFX* _sfx) {
+	if (m_SFXs->find(_sfx->getName()) != m_SFXs->end()) return;
+	m_SFXs->insert(pair<string, SFX*>(_sfx->getName(), _sfx));
+}
+
+void NPC::playSFX(string _mapKey) {
+	if (m_SFXs->find(_mapKey) == m_SFXs->end()) return;
+	(*m_SFXs)[_mapKey]->play();
 }

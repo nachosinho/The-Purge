@@ -12,6 +12,7 @@ public:
 	AmmoInfo* getAmmoInfo(void) { return this->m_AmmoInfo; }
 
 	void loadAnimations(void);
+	void loadSFXs(void);
 	void animationControl(void);
 	void moveControl(void);
 
