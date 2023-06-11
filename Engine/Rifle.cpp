@@ -95,5 +95,25 @@ void Rifle::update(void) {
 			m_Bullets->erase(m_Bullets->begin() + i);
 			break;
 		}
+
+		for (int j = 0, jend = this->m_GameManager->getEnemies()->size(); j < jend; j++) {
+			Enemy* _enemy = (*this->m_GameManager->getEnemies())[j];
+			if (_enemy == nullptr)
+				break;
+
+			FloatRect enemyHitbox = _enemy->getGlobalBounds();
+			enemyHitbox.top += enemyHitbox.height / 4.f;
+			enemyHitbox.height /= 2.f;
+			enemyHitbox.left += enemyHitbox.width / 4.f;
+			enemyHitbox.width /= 2.f;
+
+			if (_bullet->getGlobalBounds().intersects(enemyHitbox)) {
+				_enemy->setHealth(_enemy->getHealth() - this->getDamage());
+				_bullet = nullptr;
+				delete _bullet;
+				m_Bullets->erase(m_Bullets->begin() + i);
+				break;
+			}
+		}
 	}
 }

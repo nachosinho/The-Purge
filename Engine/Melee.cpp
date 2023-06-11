@@ -48,8 +48,6 @@ void Melee::update(void) {
 	if (this->m_Cooldown + elapsedTime < this->m_Delay) this->m_Cooldown += elapsedTime;
 	else this->m_Cooldown = this->m_Delay;
 
-	std::cout << this->m_Cooldown << "\n";
-
 	if (anim->getName() == "ATTACK") {
 		if (anim->getCurrentFrame() == anim->getFramesCount() - 1) {
 			this->getOwner()->setAnimation("IDLE");

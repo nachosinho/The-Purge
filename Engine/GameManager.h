@@ -33,6 +33,7 @@ public:
 
 	//Level* getCurrentLevel(void) { return this->m_CurrentLevel; }
 	Player* getPlayer(void) { return this->m_Player; }
+	vector<Enemy*>* getEnemies(void) { return this->m_Enemies; }
 
 	RenderWindow* getWindow(void) { return this->m_Window; }
 	int getGameStatus(void) { return this->m_GameState; }

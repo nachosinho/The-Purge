@@ -103,8 +103,19 @@ void GameManager::render() {
 		}
 
 		if (this->m_Enemies != nullptr) {
-			for (Enemy* _enemy : *this->m_Enemies)
+			for (int i = 0, end = this->m_Enemies->size(); i < end; i++) {
+				Enemy* _enemy = (*this->m_Enemies)[i];
+				if (_enemy == nullptr)
+					continue;
+
 				_enemy->render();
+				if (_enemy->getHealth() <= 0) {
+					_enemy = nullptr;
+					delete _enemy;
+					this->m_Enemies->erase(this->m_Enemies->begin() + i);
+					break;
+				}
+			}
 		}
 
 		//if (this->m_Menu != nullptr) {

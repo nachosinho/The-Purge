@@ -12,7 +12,6 @@ NPC::NPC(void) {
 void NPC::setHealth(int _value) {
 	if (_value > 100) _value = 100;
 	if (_value < 0) _value = 0;
-	std::cout << _value;
 
 	this->m_Health = _value;
 	this->m_HealthBar->setPercentage(this->getHealth() / 100.f);
