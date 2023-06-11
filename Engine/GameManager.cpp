@@ -68,7 +68,8 @@ void GameManager::restartGame(void) {
 	this->m_GameState = GAMESTATE::PLAYING;
 	this->m_Player = new Player(this);
 	this->m_Enemies = new vector<Enemy*>;
-	this->addEnemy(new Enemy(this));
+	for (int i = 0; i < 5; i++)
+		this->addEnemy(new Enemy(this));
 	//this->m_CurrentLevel = new TestLevel(this);
 }
 
@@ -113,7 +114,7 @@ void GameManager::render() {
 					_enemy = nullptr;
 					delete _enemy;
 					this->m_Enemies->erase(this->m_Enemies->begin() + i);
-					break;
+					continue;
 				}
 			}
 		}

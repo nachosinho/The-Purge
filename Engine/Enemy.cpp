@@ -7,7 +7,15 @@ Enemy::Enemy(GameManager* _gameManager) {
 
 	this->setScale(0.25f, 0.25f);
 	//this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
-	this->setPosition(10.f, 10.f);
+	Vector2i startingPosition = { rand() % 2, rand() % 2 };
+
+	if (startingPosition.x) startingPosition.x = WINDOW_X + rand() % 200 + 50.f;
+	else startingPosition.x = -(rand() % 200) - 50.f;
+
+	if (startingPosition.y) startingPosition.y = WINDOW_Y + rand() % 200 + 50.f;
+	else startingPosition.y = -(rand() % 200) - 50.f;
+
+	this->setPosition(Vector2f(startingPosition));
 
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
 	//this->m_HealthBar->setColor(Color::Green);
@@ -48,8 +56,24 @@ void Enemy::moveControl(void) {
 	if (this->m_HealthBar->getPosition().y + this->m_HealthBar->getSize().y + this->getGlobalBounds().height >= WINDOW_Y)
 		this->move(0.f, -PLAYER_SPEED);
 
-	sf::Vector2f distanceVec = { abs(playerPos.x - this->getPosition().x),
-		abs(playerPos.y - this->getPosition().y - this->m_GameManager->getPlayer()->getGlobalBounds().height / 4.f) };
+	RectangleShape hitbox;
+	FloatRect playerHitbox = this->m_GameManager->getPlayer()->getGlobalBounds();
+
+
+	hitbox.setPosition(playerHitbox.left, playerHitbox.top);
+	hitbox.setSize(Vector2f(playerHitbox.width, playerHitbox.height));
+
+
+	hitbox.setOutlineColor(Color::Red);
+	hitbox.setOutlineThickness(1.f);
+
+	hitbox.setPosition(playerPos);
+	hitbox.setSize({20, 20});
+
+	this->m_GameManager->getWindow()->draw(hitbox);
+
+	sf::Vector2f distanceVec = { abs(hitbox.getPosition().x - this->getPosition().x),
+		abs(hitbox.getPosition().y - this->getPosition().y - this->getGlobalBounds().height / 2.f) };
 	float distanceFloat = sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
 
 	if (distanceFloat > 50.f) {
@@ -67,7 +91,7 @@ void Enemy::render(void) {
 
 	this->moveControl();
 
-	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 5000.f);
+	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 50000.f);
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
 	this->m_Weapon->update();
