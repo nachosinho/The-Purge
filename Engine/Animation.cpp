@@ -21,6 +21,6 @@ void Animation::render(float& _deltaTime) {
 		m_TotalTime = 0.f;
 		if (m_CurrentFrame >= m_FramesCount)
 			m_CurrentFrame = 0;
-		m_NPC->setTextureRect(this->getFrameRect());
+		this->m_NPC->setTextureRect(this->getFrameRect());
 	}
 }

@@ -8,8 +8,11 @@ private:
 	vector<Bullet*>* m_Bullets;
 
 	class GameManager* m_GameManager;
+	class Player* m_Owner;
 public:
-	Weapon(class GameManager*);
+	Weapon(class GameManager*, class Player*);
+
+	class Player* getOwner(void) { return this->m_Owner; }
 
 	void reload(void);
 	void shoot(void);

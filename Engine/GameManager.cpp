@@ -6,13 +6,14 @@ GameManager::GameManager(void) {
 	this->m_Clock = new Clock;
 	this->m_WindowHandler = this->m_Window->getSystemHandle();
 
-	if (!DEBUGGING) {
+	//if (!DEBUGGING) {
 		//
 
 		//
-	} else this->restartGame();
-
+	//} else
 	this->loadSettings();
+
+	this->restartGame();
 	this->render();
 }
 

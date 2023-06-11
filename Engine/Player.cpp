@@ -3,7 +3,7 @@
 
 Player::Player(GameManager* _gameManager) {
 	this->m_GameManager = _gameManager;
-	this->m_Weapon = new Weapon(_gameManager);
+	this->m_Weapon = new Weapon(_gameManager, this);
 
 	this->setScale(0.25f, 0.25f);
 	this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
@@ -54,8 +54,9 @@ void Player::moveControl(void) {
 		this->setAnimation("MOVE");
 	else if (Keyboard::isKeyPressed(Keyboard::R))
 		this->m_Weapon->reload();
-	else if (Mouse::isButtonPressed(Mouse::Left))
+	else if (Mouse::isButtonPressed(Mouse::Left)) {
 		this->m_Weapon->shoot();
+	}
 	//else this->setAnimation("IDLE");
 }
 
