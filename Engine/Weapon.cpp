@@ -2,7 +2,7 @@
 #include "Weapon.h"
 
 Weapon::Weapon(GameManager* _gameManager, NPC* _player)
-	: m_Damage(1), m_Delay(0.00025f), m_Cooldown(0.00025f)
+	: m_Damage(1), m_Delay(0.00005f), m_Cooldown(0.00005f)
 {
 	this->m_GameManager = _gameManager;
 	this->m_Owner = _player;

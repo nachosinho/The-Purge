@@ -12,6 +12,8 @@ Rifle::Rifle(GameManager* _gameManager, Player* _player)
 
 	this->m_Bullets = new vector<Bullet*>;
 	this->setDamage(25);
+	this->setDelay(0.0001f);
+	this->setCooldown(this->getDelay());
 }
 
 void Rifle::setAmmo(int _value) {

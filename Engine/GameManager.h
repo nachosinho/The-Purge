@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "EnemySpawner.h"
+#include "Level.h"
 #include "../Menus/MenusList.h"
 
 class GameManager {
@@ -14,7 +15,7 @@ private:
 
 	Player* m_Player;
 	EnemySpawner* m_EnemySpawner;
-	//Level* m_Level;
+	Level* m_Level;
 	Menu* m_Menu;
 	//SubMenu* m_SubMenu;
 
@@ -32,7 +33,7 @@ public:
 
 	GameManager(void);
 
-	//Level* getCurrentLevel(void) { return this->m_CurrentLevel; }
+	Level* getCurrentLevel(void) { return this->m_Level; }
 	Player* getPlayer(void) { return this->m_Player; }
 
 	RenderWindow* getWindow(void) { return this->m_Window; }

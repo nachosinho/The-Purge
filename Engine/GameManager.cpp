@@ -9,6 +9,7 @@ GameManager::GameManager(void) {
 	if (!DEBUGGING) {
 		this->m_GameState = GAMESTATE::MAINMENU;
 		this->m_Player = nullptr;
+		this->m_Level = nullptr;
 		this->m_Menu = new MainMenu(this);
 	} else this->restartGame();
 
@@ -59,9 +60,9 @@ void GameManager::setMenu(Menu* _menu, int _state) {
 	delete this->m_Menu;
 	this->m_Menu = _menu;
 
-	if (this->m_GameState == GAMESTATE::PLAYING){ //&&
-		//(this->m_Player == nullptr || this->m_CurrentLevel == nullptr)) {
-		//this->m_CurrentLevel = new TestLevel(this);
+	if (this->m_GameState == GAMESTATE::PLAYING &&
+		(this->m_Player == nullptr || this->m_Level == nullptr)) {
+		this->m_Level = new Level(this);
 	}
 }
 
@@ -75,14 +76,18 @@ void GameManager::restartGame(void) {
 	delete this->m_Player;
 	this->m_Player = nullptr;
 
-	//delete this->m_CurrentLevel;
+	delete this->m_Level;
+	this->m_Level = nullptr;
 
 	this->m_GameState = GAMESTATE::PLAYING;
 	this->m_EnemySpawner = new EnemySpawner(this);
 	this->m_Player = new Player(this);
 	for (int i = 0; i < 5; i++)
 		this->m_EnemySpawner->addEnemy(new Enemy(this));
-	//this->m_CurrentLevel = new TestLevel(this);
+	this->m_Level = new Level(this);
+	this->m_Level->addTexture("Assets/Textures/Environment/Map#01.png");
+	this->m_Level->setSFX(new SFX("GAMEPLAY", "Assets/Sounds/Music/Playing.ogg"));
+	this->m_Level->getSFX()->play();
 }
 
 void GameManager::render() {
@@ -96,10 +101,10 @@ void GameManager::render() {
 
 		this->m_Window->clear(Color::White);
 		//
-		//if (this->m_CurrentLevel != nullptr) {
-		//	this->m_CurrentLevel->render(this->m_Window);
-		//	this->m_CurrentLevel->manageMusic();
-		//}
+		if (this->m_Level != nullptr) {
+			this->m_Level->render();
+			this->m_Level->manageMusic();
+		}
 
 		if (this->m_Menu != nullptr) {
 			this->m_Menu->render();

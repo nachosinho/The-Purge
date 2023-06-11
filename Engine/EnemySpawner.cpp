@@ -40,4 +40,11 @@ void EnemySpawner::update(void) {
 		}
 	}
 
+	this->m_ElapsedTime += this->m_GameManager->getClock()->restart().asSeconds() * 10.f;
+	std::cout << m_ElapsedTime << " " << 0.0001f << std::endl;
+	if (this->m_ElapsedTime >= 0.0001f) {
+		this->addEnemy(new Enemy(this->m_GameManager));
+		std::cout << "ENEMY\n";
+		this->m_ElapsedTime = 0.f;
+	}
 }
