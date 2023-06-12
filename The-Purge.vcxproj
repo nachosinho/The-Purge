@@ -189,6 +189,10 @@
     <ClInclude Include="Engine\Player.h" />
     <ClInclude Include="Engine\SFX.h" />
     <ClInclude Include="Engine\Weapon.h" />
+    <ClInclude Include="Levels\Bunkers.h" />
+    <ClInclude Include="Levels\Cemetery.h" />
+    <ClInclude Include="Levels\LevelsList.h" />
+    <ClInclude Include="Levels\Park.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Menus\MenusList.h" />

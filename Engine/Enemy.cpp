@@ -6,20 +6,11 @@ Enemy::Enemy(GameManager* _gameManager) {
 	this->m_Weapon = new Melee(_gameManager, this);
 
 	this->setScale(0.25f, 0.25f);
-	//this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
-	Vector2i rollPosition = { rand() % 2, rand() % 2 };
-	Vector2f startingPosition;
-
-	if (rollPosition.x) startingPosition.x = WINDOW_X + rand() % 200 + 50.f;
-	else startingPosition.x = -(rand() % 200) - 50.f;
-
-	if (rollPosition.y) startingPosition.y = WINDOW_Y + rand() % 200 + 50.f;
-	else startingPosition.y = -(rand() % 200) - 50.f;
-
-	this->setPosition(Vector2f(startingPosition));
 
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
-	this->setVelocity(0.25f);
+	this->setVelocity(0.5f);
+
+	this->reset();
 
 	this->loadSFXs();
 	this->loadAnimations();
@@ -88,6 +79,24 @@ void Enemy::moveControl(void) {
 	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());
 }
 
+void Enemy::reset(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	this->setHealth(this->getMaxHealth());
+
+	Vector2i rollPosition = { rand() % 2, rand() % 2 };
+	Vector2f startingPosition;
+
+	if (rollPosition.x) startingPosition.x = WINDOW_X + rand() % 500 + 250.f;
+	else startingPosition.x = -(rand() % 500) - 250.f;
+
+	if (rollPosition.y) startingPosition.y = WINDOW_Y + rand() % 500 + 250.f;
+	else startingPosition.y = -(rand() % 500) - 250.f;
+
+	this->setPosition(Vector2f(startingPosition));
+}
+
 void Enemy::render(void) {
 	if (this->m_GameManager == nullptr)
 		return;
@@ -97,7 +106,7 @@ void Enemy::render(void) {
 
 	this->moveControl();
 
-	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 50000.f);
+	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 10000.f);
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
 	this->m_Weapon->update();

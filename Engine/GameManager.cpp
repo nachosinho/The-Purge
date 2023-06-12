@@ -6,6 +6,9 @@ GameManager::GameManager(void) {
 	this->m_Clock = new Clock;
 	this->m_WindowHandler = this->m_Window->getSystemHandle();
 
+	this->loadSettings();
+	this->loadLevels();
+
 	if (!DEBUGGING) {
 		this->m_GameState = GAMESTATE::MAINMENU;
 		this->m_Player = nullptr;
@@ -14,7 +17,6 @@ GameManager::GameManager(void) {
 		this->m_Menu = new MainMenu(this);
 	} else this->restartGame();
 
-	this->loadSettings();
 	this->render();
 }
 
@@ -36,6 +38,10 @@ void GameManager::loadSettings(void) {
 		SetWindowLong(hwnd, GWL_STYLE, style);
 		SetWindowPos(hwnd, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
 	}
+}
+
+void GameManager::loadLevels(void) {
+	this->m_Levels = new vector<Level*> { new Bunkers(this), new Cemetery(this), new Park(this) };
 }
 
 void GameManager::eventManager(void) {
@@ -82,11 +88,7 @@ void GameManager::restartGame(void) {
 	this->m_EnemySpawner = new EnemySpawner(this);
 	this->m_Player = new Player(this);
 	this->m_KillCount = new KillCount(this);
-	for (int i = 0; i < 5; i++)
-		this->m_EnemySpawner->addEnemy(new Enemy(this));
-	this->m_Level = new Level(this);
-	this->m_Level->addTexture("Assets/Textures/Environment/Map#01.png");
-	this->m_Level->setSFX(new SFX("GAMEPLAY", "Assets/Sounds/Music/Playing.ogg"));
+	this->m_Level = (*this->m_Levels)[rand() % this->m_Levels->size()];
 	this->m_Level->getSFX()->play();
 }
 

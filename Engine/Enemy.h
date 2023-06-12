@@ -11,6 +11,7 @@ public:
 	void loadSFXs(void);
 	void animationControl(void);
 	void moveControl(void);
+	void reset(void);
 
 	void render(void);
 };
