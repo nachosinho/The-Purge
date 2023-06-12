@@ -10,8 +10,8 @@ Melee::Melee(GameManager* _gameManager, NPC* _player)
 	if (this->getOwner() == nullptr)
 		return;
 
-	this->setDelay(0.00005f);
-	this->setCooldown(0.00005f);
+	this->setDelay(0.5f);
+	this->setCooldown(0.5f);
 	this->setDamage(15);
 }
 
@@ -45,7 +45,7 @@ void Melee::update(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	float elapsedTime = this->m_GameManager->getClock()->restart().asSeconds();
+	float elapsedTime = this->m_GameManager->getElapsedTime();
 	if (this->m_Cooldown + elapsedTime < this->m_Delay) this->m_Cooldown += elapsedTime;
 	else this->m_Cooldown = this->m_Delay;
 

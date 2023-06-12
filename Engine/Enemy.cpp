@@ -106,7 +106,7 @@ void Enemy::render(void) {
 
 	this->moveControl();
 
-	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds() * 10000.f);
+	this->m_CurrentAnimation->render(this->m_GameManager->getElapsedTime());
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_HealthBar->render();
 	this->m_Weapon->update();

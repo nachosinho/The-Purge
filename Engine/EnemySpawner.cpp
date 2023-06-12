@@ -24,11 +24,25 @@ void EnemySpawner::addEnemy(Enemy* _enemy) {
 	this->m_Enemies->push_back(_enemy);
 }
 
+void EnemySpawner::reload(void) {
+	if (this->m_Enemies == nullptr)
+		return;
+
+	for (Enemy* _enemy : *this->m_Enemies) {
+		if (_enemy == nullptr)
+			continue;
+		_enemy->reset();
+	}
+}
+
 void EnemySpawner::update(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
 	if (this->m_Enemies == nullptr)
+		return;
+
+	if (this->m_GameManager->getKillCount() == nullptr)
 		return;
 
 	int score = this->m_GameManager->getKillCount()->getScore();
@@ -39,7 +53,6 @@ void EnemySpawner::update(void) {
 
 		_enemy->render();
 		if (_enemy->getHealth() <= 0) {
-			_enemy->playSFX("DEATH");
 			this->m_GameManager->getKillCount()->setScore(this->m_GameManager->getKillCount()->getScore() + 1);
 			_enemy->reset();
 			_enemy->setMaxHealth(_enemy->getMaxHealth() + 10 * ((score / 5.f) - 1));

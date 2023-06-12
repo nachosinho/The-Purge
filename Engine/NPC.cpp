@@ -23,6 +23,12 @@ void NPC::setHealth(int _value) {
 
 	this->m_Health = _value;
 	this->m_HealthBar->setPercentage(1.f * this->getHealth() / this->m_MaxHealth);
+
+	if (this->m_SFXs == nullptr)
+		return;
+
+	if (this->getHealth() <= 0)
+		this->playSFX("DEATH");
 }
 
 void NPC::setMaxHealth(int _value) {

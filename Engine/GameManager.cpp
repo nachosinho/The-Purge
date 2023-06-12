@@ -9,13 +9,9 @@ GameManager::GameManager(void) {
 	this->loadSettings();
 	this->loadLevels();
 
-	if (!DEBUGGING) {
-		this->m_GameState = GAMESTATE::MAINMENU;
-		this->m_Player = nullptr;
-		this->m_Level = nullptr;
-		this->m_KillCount = nullptr;
-		this->m_Menu = new MainMenu(this);
-	} else this->restartGame();
+	if (!DEBUGGING)
+		this->setMenu(new MainMenu(this), GAMESTATE::MAINMENU);
+	else this->restartGame();
 
 	this->render();
 }
@@ -64,15 +60,25 @@ void GameManager::eventManager(void) {
 
 void GameManager::setMenu(Menu* _menu, int _state) {
 	this->m_GameState = _state;
+
 	delete this->m_Menu;
 	this->m_Menu = _menu;
+
+	switch (this->m_GameState) {
+	case GAMESTATE::MAINMENU:
+	case GAMESTATE::OVER:
+		this->m_Player = nullptr;
+		this->m_KillCount = nullptr;
+		this->m_Level = nullptr;
+		break;
+	}
 }
 
 void GameManager::restartGame(void) {
 	delete this->m_Menu;
 	this->m_Menu = nullptr;
 
-	delete this->m_EnemySpawner;
+	/*delete this->m_EnemySpawner;
 	this->m_EnemySpawner = nullptr;
 
 	delete this->m_Player;
@@ -82,18 +88,36 @@ void GameManager::restartGame(void) {
 	this->m_KillCount = nullptr;
 
 	delete this->m_Level;
-	this->m_Level = nullptr;
+	this->m_Level = nullptr;*/
+
+	if (this->m_Level != nullptr)
+		this->m_Level->getSFX()->stop();
 
 	this->m_GameState = GAMESTATE::PLAYING;
-	this->m_EnemySpawner = new EnemySpawner(this);
-	this->m_Player = new Player(this);
-	this->m_KillCount = new KillCount(this);
+
+	if (this->m_EnemySpawner == nullptr) this->m_EnemySpawner = new EnemySpawner(this);
+	else this->m_EnemySpawner->reload();
+
+	if (this->m_Player == nullptr) this->m_Player = new Player(this);
+	else this->m_Player->reset();
+
+	if (this->m_KillCount == nullptr) this->m_KillCount = new KillCount(this);
+	else this->m_KillCount->setScore(0);
+
 	this->m_Level = (*this->m_Levels)[rand() % this->m_Levels->size()];
 	this->m_Level->getSFX()->play();
 }
 
+void GameManager::setElapsedTime(float _value) {
+	if (_value <= 0.f) _value = 0.f;
+	this->m_ElapsedTime = _value;
+}
+
 void GameManager::render() {
 	while (this->m_Window->isOpen()) {
+
+		if (this->getClock() != nullptr)
+			this->setElapsedTime(this->getClock()->restart().asSeconds());
 
 		this->eventManager();
 
@@ -101,34 +125,27 @@ void GameManager::render() {
 			this->getGameStatus() == GAMESTATE::PLAYING)
 			this->setMenu(new PauseMenu(this), GAMESTATE::PAUSED);
 
-		this->m_Window->clear(Color::White);
+		this->m_Window->clear(Color::Black);
 		//
-		if (this->m_Level != nullptr) {
-			this->m_Level->render();
-			this->m_Level->manageMusic();
-		}
+		if (this->getCurrentLevel() != nullptr)
+			this->getCurrentLevel()->render();
 
-		if (this->m_Menu != nullptr) {
-			this->m_Menu->render();
-			this->m_Menu->handleInput();
-		}
+		if (this->getMenu() != nullptr)
+			this->getMenu()->render();
 
 		if (this->getGameStatus() == GAMESTATE::PAUSED) {
 			this->m_Window->display();
 			continue;
 		}
 
-		if (this->m_Player != nullptr) {
-			this->m_Player->render();
-		}
+		if (this->getEnemySpawner() != nullptr)
+			this->getEnemySpawner()->update();
 
-		if (this->m_EnemySpawner != nullptr) {
-			this->m_EnemySpawner->update();
-		}
+		if (this->getPlayer() != nullptr)
+			this->getPlayer()->render();
 
-		if (this->m_KillCount != nullptr) {
-			this->m_KillCount->render();
-		}
+		if (this->getKillCount() != nullptr)
+			this->getKillCount()->render();
 		//
 		this->m_Window->display();
 	}

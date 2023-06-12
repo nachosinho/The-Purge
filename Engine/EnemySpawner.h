@@ -14,5 +14,7 @@ public:
 
 	void addEnemy(Enemy*);
 
+	void reload(void);
+
 	void update(void);
 };

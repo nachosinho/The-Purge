@@ -52,4 +52,5 @@ void Level::render(void) {
 		return;
 
 	this->m_GameManager->getWindow()->draw(*this);
+	this->manageMusic();
 }

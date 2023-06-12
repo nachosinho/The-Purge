@@ -13,6 +13,7 @@ private:
 	RenderWindow* m_Window;
 	Event* m_Event;
 	Clock* m_Clock;
+	float m_ElapsedTime;
 
 	vector<Level*>* m_Levels;
 
@@ -25,7 +26,10 @@ private:
 
 	void loadSettings(void);
 	void loadLevels(void);
-	void eventManager(void);	
+	void eventManager(void);
+
+	void setElapsedTime(float);
+
 	void render(void);
 
 public:
@@ -44,6 +48,7 @@ public:
 	int getGameStatus(void) { return this->m_GameState; }
 	Event* getEvent(void) { return this->m_Event; }
 	Clock* getClock(void) { return this->m_Clock; }
+	float getElapsedTime(void) { return this->m_ElapsedTime; }
 	EnemySpawner* getEnemySpawner(void) { return this->m_EnemySpawner; }
 	KillCount* getKillCount(void) { return this->m_KillCount; }
 	Menu* getMenu(void) { return this->m_Menu; }

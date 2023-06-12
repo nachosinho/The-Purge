@@ -12,7 +12,7 @@ Rifle::Rifle(GameManager* _gameManager, Player* _player)
 
 	this->m_Bullets = new vector<Bullet*>;
 	this->setDamage(40);
-	this->setDelay(0.00005f);
+	this->setDelay(0.5f);
 	this->setCooldown(this->getDelay());
 }
 
@@ -75,9 +75,11 @@ void Rifle::update(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	float elapsedTime = this->m_GameManager->getClock()->restart().asSeconds();
+	float elapsedTime = this->m_GameManager->getElapsedTime();
 	if (this->m_Cooldown + elapsedTime < this->m_Delay) this->m_Cooldown += elapsedTime;
 	else this->m_Cooldown = this->m_Delay;
+
+	//std::cout << m_Cooldown << " " << m_Delay << std::endl;
 
 	if (anim->getName() == "RELOAD") {
 		if (anim->getCurrentFrame() == anim->getFramesCount() - 1) {

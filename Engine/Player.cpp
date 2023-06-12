@@ -22,6 +22,7 @@ void Player::loadSFXs(void) {
 	this->addSFX(new SFX("ATTACK", "Assets/Sounds/SFX/Rifle_Shot.ogg"));
 	this->addSFX(new SFX("RELOAD", "Assets/Sounds/SFX/Rifle_Reload.ogg"));
 	this->addSFX(new SFX("EMPTY", "Assets/Sounds/SFX/Rifle_Empty.ogg"));
+	this->addSFX(new SFX("DEATH", "Assets/Sounds/SFX/Player_Death.ogg"));
 }
 
 void Player::loadAnimations(void) {
@@ -80,6 +81,15 @@ void Player::moveControl(void) {
 		dynamic_cast<Rifle*>(this->m_Weapon)->shoot();
 }
 
+void Player::reset(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
+	this->setRotation(0.f);
+	this->setMaxHealth(100);
+}
+
 void Player::render(void) {
 	if (this->m_GameManager == nullptr)
 		return;
@@ -95,7 +105,12 @@ void Player::render(void) {
 
 	this->moveControl();
 
-	this->m_CurrentAnimation->render(this->m_GameManager->getClock()->restart().asSeconds());
+	if (this->getHealth() <= 0) {
+		this->m_GameManager->setMenu(new GameOverMenu(this->m_GameManager), GameManager::GAMESTATE::OVER);
+		return;
+	}
+
+	this->m_CurrentAnimation->render(this->m_GameManager->getElapsedTime());
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_Weapon->update();
 	this->m_HealthBar->render();

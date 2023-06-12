@@ -16,6 +16,7 @@ void Animation::render(float _deltaTime) {
 		return;
 
 	m_TotalTime += _deltaTime;
+
 	if (m_TotalTime >= 0.05f) {
 		m_CurrentFrame++;
 		m_TotalTime = 0.f;

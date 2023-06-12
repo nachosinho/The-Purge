@@ -41,6 +41,7 @@ public:
 
 	virtual void animationControl(void) = 0;
 	virtual void moveControl(void) = 0;
+	virtual void reset(void) = 0;
 
 	virtual void render(void) = 0;
 };

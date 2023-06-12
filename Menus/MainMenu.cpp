@@ -97,6 +97,8 @@ void MainMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_ExitButton);
 	this->m_GameManager->getWindow()->draw(this->m_PlayText);
 	this->m_GameManager->getWindow()->draw(this->m_ExitText);
+
+	this->handleInput();
 }
 
 void MainMenu::update(void) {

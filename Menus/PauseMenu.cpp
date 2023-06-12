@@ -85,4 +85,6 @@ void PauseMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_ExitButton);
 	this->m_GameManager->getWindow()->draw(this->m_ReturnText);
 	this->m_GameManager->getWindow()->draw(this->m_ExitText);
+
+	this->handleInput();
 }
