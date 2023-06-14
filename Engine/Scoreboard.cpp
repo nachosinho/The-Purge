@@ -49,7 +49,6 @@ void ScoreBoard::saveScoreBoard(void) {
 		for (Score _score : *this->m_ScoreVec)
 			output << _score.m_Name << "," << _score.m_Score << endl;
 
-		std::cout << "x" << " " << "d" << endl;
 		output.close();
 	}
 }

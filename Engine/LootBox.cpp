@@ -107,7 +107,6 @@ void LootBox::assignBonus(void) {
 		this->m_NotificationTime = 1.4f;
 	}
 
-	std::cout << this->m_CurrentBonus << std::endl;
 	this->reset();
 }
 
