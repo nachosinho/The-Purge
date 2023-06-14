@@ -31,5 +31,12 @@ public:
 
 	class NPC* getOwner(void) { return this->m_Owner; }
 
+	void reset(void);
 	virtual void update(void) = 0;
+
+	// Pistol, Rifle, Shotgun, Melee
+	const int DEFAULT_MAX_AMMO[3] = { 7, 30, 2 };
+	const int DEFAULT_DAMAGE[4] = { 25, 10, 50, 15 };
+	const float DEFAULT_DELAY[4] = { 0.5f, 0.05f, 1.75f, 0.5f };
+	const float DEFAULT_BULLET_VELOCITY[3] = { 5.f, 7.5f, 4.f };
 };

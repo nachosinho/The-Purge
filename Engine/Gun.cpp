@@ -24,19 +24,6 @@ void Gun::setMaxAmmo(int _value) {
 	this->m_Ammo = _value;
 }
 
-void Gun::reset(void) {
-	if (this->m_GameManager == nullptr)
-		return;
-
-	if (this->m_WeaponType >= Weapon::WEAPONTYPE::MELEE)
-		return;
-
-	this->setDamage(this->DEFAULT_DAMAGE[this->m_WeaponType]);
-	this->setBulletVelocity(this->DEFAULT_BULLET_VELOCITY[this->m_WeaponType]);
-	this->setMaxAmmo(this->DEFAULT_MAX_AMMO[this->m_WeaponType]);
-	this->setDelay(this->DEFAULT_DELAY[this->m_WeaponType]);
-}
-
 void Gun::reload(void) {
 	if (this->m_GameManager == nullptr)
 		return;

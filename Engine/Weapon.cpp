@@ -65,3 +65,24 @@ void Weapon::switchWeapon(int _weaponType) {
 	this->m_Owner->playSFX(this->getName() + "_SWITCH");
 	this->m_NextWeapon = _weaponType;
 }
+
+void Weapon::reset(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	switch (this->m_WeaponType) {
+	case Weapon::WEAPONTYPE::PISTOL:
+	case Weapon::WEAPONTYPE::RIFLE:
+	case Weapon::WEAPONTYPE::SHOTGUN:
+		dynamic_cast<Gun*>(this)->setBulletVelocity(this->DEFAULT_BULLET_VELOCITY[this->m_WeaponType]);
+		dynamic_cast<Gun*>(this)->setMaxAmmo(this->DEFAULT_MAX_AMMO[this->m_WeaponType]);
+	case Weapon::WEAPONTYPE::MELEE:
+		this->setDamage(this->DEFAULT_DAMAGE[this->m_WeaponType]);
+		this->setDelay(this->DEFAULT_DELAY[this->m_WeaponType]);
+		break;
+	case Weapon::WEAPONTYPE::NONE:
+		break;
+	default:break;
+	}
+
+}

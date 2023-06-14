@@ -18,13 +18,6 @@ public:
 	void setMaxAmmo(int);
 
 	virtual void shoot(void) = 0;
-	void reset(void);
 	void reload(void);
 	void update(void);
-
-	// Pistol, Rifle, Shotgun
-	const int DEFAULT_MAX_AMMO[3] = { 7, 30, 2 };
-	const int DEFAULT_DAMAGE[3] = { 25, 10, 50 };
-	const float DEFAULT_DELAY[3] = { 0.5f, 0.05f, 1.75f };
-	const float DEFAULT_BULLET_VELOCITY[3] = { 5.f, 7.5f, 4.f };
 };

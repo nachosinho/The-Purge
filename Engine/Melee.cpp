@@ -10,9 +10,9 @@ Melee::Melee(GameManager* _gameManager, NPC* _player)
 	if (this->getOwner() == nullptr)
 		return;
 
-	this->setDelay(0.5f);
-	this->setCooldown(0.5f);
-	this->setDamage(15);
+	this->m_Name = "MELEE";
+	this->m_WeaponType = Weapon::WEAPONTYPE::MELEE;
+	this->reset();
 }
 
 void Melee::attack(NPC* _target) {

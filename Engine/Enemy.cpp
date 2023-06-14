@@ -8,7 +8,6 @@ Enemy::Enemy(GameManager* _gameManager) {
 	this->setScale(0.25f, 0.25f);
 
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
-	this->setVelocity(0.5f);
 
 	this->reset();
 
@@ -45,7 +44,11 @@ void Enemy::moveControl(void) {
 
 	Vector2f playerPos = { this->m_GameManager->getPlayer()->getPosition().x + this->m_GameManager->getPlayer()->getGlobalBounds().width / 4.f,
 	this->m_GameManager->getPlayer()->getPosition().y + this->m_GameManager->getPlayer()->getGlobalBounds().height / 4.f };
-	Vector2f direction = playerPos - this->getPosition();
+	
+	Vector2f enemyPosition = { this->getPosition().x + this->getGlobalBounds().width * 2.f * this->getScale().x * cos((this->getRotation() + 30.f) * M_PI / 180.f),
+		this->getPosition().y + this->getGlobalBounds().height * 2.f * this->getScale().y * sin((this->getRotation() + 30.f) * M_PI / 180.f) };
+
+	Vector2f direction = playerPos - enemyPosition;
 	float rotation = atan2(direction.y, direction.x) * 180.f / M_PI;
 
 	sf::Vector2f position = { cos(rotation * float(M_PI / 180.f)) * this->getVelocity(), sin(rotation * float(M_PI / 180.f)) * this->getVelocity() };
@@ -69,21 +72,41 @@ void Enemy::moveControl(void) {
 
 	//this->m_GameManager->getWindow()->draw(hitbox);
 
-	sf::Vector2f distanceVec = { abs(hitbox.getPosition().x - this->getPosition().x),
-		abs(hitbox.getPosition().y - this->getPosition().y - this->getGlobalBounds().height / 2.f) };
+	sf::Vector2f distanceVec = { abs(hitbox.getPosition().x - enemyPosition.x),
+		abs(hitbox.getPosition().y - enemyPosition.y - this->getGlobalBounds().height / 2.f) };
 	float distanceFloat = sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
 
-	if (distanceFloat > 50.f) {
+	if (distanceFloat > 50.f && this->getCurrentAnimation()->getName() != "ATTACK") {
 		this->setRotation(rotation);
 		this->move(position);
 	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());
+
+	//
+
+	Player* player = this->m_GameManager->getPlayer();
+	Vector2f playerPosition = { player->getPosition().x + 100.f * player->getScale().x * cos((player->getRotation() + 30.f) * M_PI / 180.f),
+		player->getPosition().y + 100.f * this->getScale().y * sin((this->getRotation() + 30.f * M_PI / 180.f))};
+
+	//Vector2f enemyPosition = { this->getPosition().x + this->getGlobalBounds().width * 2.f * this->getScale().x * cos((this->getRotation() + 30.f) * M_PI / 180.f),
+	//	this->getPosition().y + this->getGlobalBounds().height * 2.f * this->getScale().y * sin((this->getRotation() + 30.f) * M_PI / 180.f) };
+
+	Vector2f delta = playerPosition - enemyPosition;
+	//float rotation = atan2(delta.y, delta.x) * 180.f / M_PI;
+	//float distance = sqrt(pow(playerPosition.x - enemyPosition.x, 2) + pow(playerPosition.y - enemyPosition.y, 2));
+
+	/*if (distance > 25.f) {
+		this->rotate(this->getRotation() - rotation);
+		this->move(this->m_Velocity * cos(rotation * M_PI / 180.f), this->m_Velocity * sin(rotation * M_PI / 180.f));
+	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());*/
 }
 
 void Enemy::reset(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
-	this->setHealth(this->getMaxHealth());
+	this->setMaxHealth(this->DEFAULT_MAX_HEALTH);
+	this->setVelocity(this->DEFAULT_VELOCITY * 0.5f);
+	this->m_Weapon->reset();
 
 	Vector2i rollPosition = { rand() % 2, rand() % 2 };
 	Vector2f startingPosition;

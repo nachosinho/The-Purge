@@ -46,4 +46,7 @@ public:
 	virtual void reset(void) = 0;
 
 	virtual void render(void) = 0;
+
+	const int DEFAULT_MAX_HEALTH = 100;
+	const float DEFAULT_VELOCITY = 1.f;
 };
