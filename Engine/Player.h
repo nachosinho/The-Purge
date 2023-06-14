@@ -2,6 +2,7 @@
 #include "NPC.h"
 #include "Rifle.h"
 #include "Pistol.h"
+#include "Shotgun.h"
 #include "AmmoInfo.h"
 
 class Player : public NPC {

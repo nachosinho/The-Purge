@@ -3,7 +3,7 @@
 
 Player::Player(GameManager* _gameManager) {
 	this->m_GameManager = _gameManager;
-	this->m_Weapons = new vector<Weapon*>{ new Pistol(this->m_GameManager, this), new Rifle(this->m_GameManager, this) };
+	this->m_Weapons = new vector<Weapon*>{ new Pistol(this->m_GameManager, this), new Rifle(this->m_GameManager, this), new Shotgun(this->m_GameManager, this) };
 
 	this->setScale(0.25f, 0.25f);
 	this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
@@ -21,10 +21,22 @@ Player::Player(GameManager* _gameManager) {
 	this->loadAnimations();
 }
 
+
 void Player::loadSFXs(void) {
-	this->addSFX(new SFX("ATTACK", "Assets/Sounds/SFX/Rifle_Shot.ogg"));
-	this->addSFX(new SFX("RELOAD", "Assets/Sounds/SFX/Rifle_Reload.ogg"));
-	this->addSFX(new SFX("EMPTY", "Assets/Sounds/SFX/Rifle_Empty.ogg"));
+	this->addSFX(new SFX("PISTOL_ATTACK", "Assets/Sounds/SFX/Pistol_Attack.ogg"));
+	this->addSFX(new SFX("PISTOL_RELOAD", "Assets/Sounds/SFX/Pistol_Reload.ogg"));
+	this->addSFX(new SFX("PISTOL_SWITCH", "Assets/Sounds/SFX/Pistol_Switch.ogg"));
+
+	this->addSFX(new SFX("RIFLE_ATTACK", "Assets/Sounds/SFX/Rifle_Attack.ogg"));
+	this->addSFX(new SFX("RIFLE_RELOAD", "Assets/Sounds/SFX/Rifle_Reload.ogg"));
+	this->addSFX(new SFX("RIFLE_SWITCH", "Assets/Sounds/SFX/Rifle_Switch.ogg"));
+
+	this->addSFX(new SFX("SHOTGUN_ATTACK", "Assets/Sounds/SFX/Shotgun_Attack.ogg"));
+	this->addSFX(new SFX("SHOTGUN_RELOAD", "Assets/Sounds/SFX/Shotgun_Reload.ogg"));
+	this->addSFX(new SFX("SHOTGUN_SWITCH", "Assets/Sounds/SFX/Shotgun_Switch.ogg"));
+
+	this->addSFX(new SFX("WEAPON_EMPTY", "Assets/Sounds/SFX/Weapon_Empty.ogg"));
+
 	this->addSFX(new SFX("DEATH", "Assets/Sounds/SFX/Player_Death.ogg"));
 }
 
@@ -40,6 +52,12 @@ void Player::loadAnimations(void) {
 	this->addAnimation(new Animation(this, "PISTOL_MOVE", "Assets/Textures/Player/Pistol_Move.png", { 258, 220 }, 20));
 	this->addAnimation(new Animation(this, "PISTOL_RELOAD", "Assets/Textures/Player/Pistol_Reload.png", { 260, 230 }, 15));
 	this->addAnimation(new Animation(this, "PISTOL_SWITCH", "Assets/Textures/Player/Pistol_Switch.png", { 291, 256 }, 15));
+
+	this->addAnimation(new Animation(this, "SHOTGUN_IDLE", "Assets/Textures/Player/Shotgun_Idle.png", { 313, 207 }, 20));
+	this->addAnimation(new Animation(this, "SHOTGUN_ATTACK", "Assets/Textures/Player/Shotgun_Attack.png", { 312, 206 }, 3));
+	this->addAnimation(new Animation(this, "SHOTGUN_MOVE", "Assets/Textures/Player/Shotgun_Move.png", { 313, 206 }, 20));
+	this->addAnimation(new Animation(this, "SHOTGUN_RELOAD", "Assets/Textures/Player/Shotgun_Reload.png", { 322, 217 }, 20));
+	this->addAnimation(new Animation(this, "SHOTGUN_SWITCH", "Assets/Textures/Player/Shotgun_Switch.png", { 358, 353 }, 15));
 
 	this->setAnimation(this->m_Weapon->getName() + "_IDLE");
 }
@@ -101,6 +119,11 @@ void Player::moveControl(void) {
 		if (dynamic_cast<Gun*>(this->m_Weapon)->getName() != "RIFLE")
 			dynamic_cast<Gun*>(this->m_Weapon)->switchWeapon(Weapon::WEAPONTYPE::RIFLE);
 	}
+
+	else if (Keyboard::isKeyPressed(Keyboard::Num3)) {
+		if (dynamic_cast<Gun*>(this->m_Weapon)->getName() != "SHOTGUN")
+			dynamic_cast<Gun*>(this->m_Weapon)->switchWeapon(Weapon::WEAPONTYPE::SHOTGUN);
+	}
 }
 
 void Player::reset(void) {
@@ -110,6 +133,8 @@ void Player::reset(void) {
 	this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
 	this->setRotation(0.f);
 	this->setMaxHealth(100);
+	for (Weapon* _gun : (*this->getWeapons()))
+		dynamic_cast<Gun*>(_gun)->reset();
 }
 
 void Player::render(void) {

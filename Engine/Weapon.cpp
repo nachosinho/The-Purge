@@ -5,7 +5,7 @@
 #include "Rifle.h"
 
 Weapon::Weapon(GameManager* _gameManager, NPC* _player)
-	: m_Damage(1), m_Name("NULL"), m_Delay(0.05f), m_Cooldown(0.05f), m_NextWeapon(-1)
+	: m_Damage(1), m_Name("NULL"), m_Delay(0.05f), m_Cooldown(0.05f), m_NextWeapon(-1), m_WeaponType(Weapon::WEAPONTYPE::NONE)
 {
 	this->m_GameManager = _gameManager;
 	this->m_Owner = _player;
@@ -45,6 +45,7 @@ void Weapon::setCooldown(float _value) {
 void Weapon::setDelay(float _value) {
 	if (_value < 0.f) _value = 0.f;
 	this->m_Delay = _value;
+	this->m_Cooldown = this->m_Delay;
 }
 
 void Weapon::switchWeapon(int _weaponType) {

@@ -1,8 +1,8 @@
 #include "GameManager.h"
-#include "Rifle.h"
+#include "Shotgun.h"
 
-Rifle::Rifle(GameManager* _gameManager, NPC* _npc)
-: Gun(_gameManager, _npc)
+Shotgun::Shotgun(GameManager* _gameManager, NPC* _npc)
+	: Gun(_gameManager, _npc)
 {
 	if (m_GameManager == nullptr)
 		return;
@@ -10,12 +10,12 @@ Rifle::Rifle(GameManager* _gameManager, NPC* _npc)
 	if (this->getOwner() == nullptr)
 		return;
 
-	this->m_Name = "RIFLE";
-	this->m_WeaponType = Weapon::WEAPONTYPE::RIFLE;
+	this->m_Name = "SHOTGUN";
+	this->m_WeaponType = Weapon::WEAPONTYPE::SHOTGUN;
 	this->reset();
 }
 
-void Rifle::shoot(void) {
+void Shotgun::shoot(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
@@ -34,6 +34,8 @@ void Rifle::shoot(void) {
 		return;
 
 	this->getOwner()->setAnimation(this->getName() + "_ATTACK");
-	this->m_Bullets->push_back(new Bullet(this));
+	this->m_Bullets->push_back(new Bullet(this, -5));
+	this->m_Bullets->push_back(new Bullet(this, 0));
+	this->m_Bullets->push_back(new Bullet(this, 5));
 	this->getOwner()->playSFX(this->getName() + "_ATTACK");
 }

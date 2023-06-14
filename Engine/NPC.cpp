@@ -78,6 +78,7 @@ void NPC::setAnimation(string _mapKey) {
 
 void NPC::addSFX(SFX* _sfx) {
 	if (m_SFXs->find(_sfx->getName()) != m_SFXs->end()) return;
+	_sfx->setVolume(75.f);
 	m_SFXs->insert(pair<string, SFX*>(_sfx->getName(), _sfx));
 }
 

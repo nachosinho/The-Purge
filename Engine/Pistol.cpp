@@ -11,10 +11,8 @@ Pistol::Pistol(GameManager* _gameManager, NPC* _npc)
 		return;
 
 	this->m_Name = "PISTOL";
-	this->setDamage(40);
-	this->setMaxAmmo(7);
-	this->setDelay(0.5f);
-	this->setCooldown(this->getDelay());
+	this->m_WeaponType = Weapon::WEAPONTYPE::PISTOL;
+	this->reset();
 }
 
 void Pistol::shoot(void) {
@@ -22,7 +20,7 @@ void Pistol::shoot(void) {
 		return;
 
 	if (this->m_Ammo == 0) {
-		this->getOwner()->playSFX("EMPTY");
+		this->getOwner()->playSFX("WEAPON_EMPTY");
 		return;
 	}
 
@@ -31,11 +29,11 @@ void Pistol::shoot(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	if (anim->getName() != "PISTOL_MOVE" &&
-		anim->getName() != "PISTOL_IDLE")
+	if (anim->getName() != this->getName() + "_MOVE" &&
+		anim->getName() != this->getName() + "_IDLE")
 		return;
 
-	this->getOwner()->setAnimation("PISTOL_ATTACK");
+	this->getOwner()->setAnimation(this->getName() + "_ATTACK");
 	this->m_Bullets->push_back(new Bullet(this));
-	this->getOwner()->playSFX("ATTACK");
+	this->getOwner()->playSFX(this->getName() + "_ATTACK");
 }

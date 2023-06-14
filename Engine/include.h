@@ -47,6 +47,5 @@ const string GAME_TITLE = "The Purge";
 const int WINDOW_X = 800;
 const int WINDOW_Y = 600;
 const int FRAMERATE_LIMIT = 60;
-const int FALL_TIME = 200;
 
 const double M_PI = 3.14159265358979323846;

@@ -168,6 +168,7 @@
     <ClCompile Include="Engine\NPC.cpp" />
     <ClCompile Include="Engine\Player.cpp" />
     <ClCompile Include="Engine\SFX.cpp" />
+    <ClCompile Include="Engine\Shotgun.cpp" />
     <ClCompile Include="Engine\Weapon.cpp" />
     <ClCompile Include="Menus\GameOverMenu.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Engine\NPC.h" />
     <ClInclude Include="Engine\Player.h" />
     <ClInclude Include="Engine\SFX.h" />
+    <ClInclude Include="Engine\Shotgun.h" />
     <ClInclude Include="Engine\Weapon.h" />
     <ClInclude Include="Levels\Bunkers.h" />
     <ClInclude Include="Levels\Cemetery.h" />

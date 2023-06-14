@@ -7,14 +7,14 @@ protected:
 	int m_Damage;
 	string m_Name;
 
-	int m_NextWeapon;
+	int m_NextWeapon, m_WeaponType;
 
 	class GameManager* m_GameManager;
 	class NPC* m_Owner;
 
 public:
 	Weapon(class GameManager*, class NPC*);
-	enum WEAPONTYPE { PISTOL, RIFLE };
+	enum WEAPONTYPE { PISTOL, RIFLE, SHOTGUN, MELEE, NONE };
 
 	int getDamage(void) { return this->m_Damage; }
 	string getName(void) { return this->m_Name; }

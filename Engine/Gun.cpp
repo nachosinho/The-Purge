@@ -3,9 +3,14 @@
 
 
 Gun::Gun(GameManager* _gameManager, NPC* _npc)
-	: Weapon(_gameManager, _npc), m_MaxAmmo(10), m_Ammo(10)
+	: Weapon(_gameManager, _npc), m_BulletVelocity(5.f), m_MaxAmmo(10), m_Ammo(10)
 {
 	this->m_Bullets = new vector<Bullet*>;
+}
+
+void Gun::setBulletVelocity(float _velocity) {
+	if (_velocity < 0.f) _velocity = 0.f;
+	this->m_BulletVelocity = _velocity;
 }
 
 void Gun::setAmmo(int _value) {
@@ -19,6 +24,19 @@ void Gun::setMaxAmmo(int _value) {
 	this->m_Ammo = _value;
 }
 
+void Gun::reset(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	if (this->m_WeaponType >= Weapon::WEAPONTYPE::MELEE)
+		return;
+
+	this->setDamage(this->DEFAULT_DAMAGE[this->m_WeaponType]);
+	this->setBulletVelocity(this->DEFAULT_BULLET_VELOCITY[this->m_WeaponType]);
+	this->setMaxAmmo(this->DEFAULT_MAX_AMMO[this->m_WeaponType]);
+	this->setDelay(this->DEFAULT_DELAY[this->m_WeaponType]);
+}
+
 void Gun::reload(void) {
 	if (this->m_GameManager == nullptr)
 		return;
@@ -27,6 +45,9 @@ void Gun::reload(void) {
 
 	if (anim->getName() != this->getName() + "_MOVE" &&
 		anim->getName() != this->getName() + "_IDLE")
+		return;
+
+	if (this->getAmmo() == this->getMaxAmmo())
 		return;
 
 	this->getOwner()->setAnimation(this->getName() + "_RELOAD");
@@ -68,6 +89,7 @@ void Gun::update(void) {
 
 	else if (anim->getName() == this->getName() + "_SWITCH") {
 		if (anim->getCurrentFrame() == anim->getFramesCount() - 1) {
+			this->m_Bullets->clear();
 			this->equipNextWeapon();
 			this->getOwner()->setAnimation(this->getName() + "_IDLE");
 			AmmoInfo* ammoInfo = dynamic_cast<Player*>(this->getOwner())->getAmmoInfo();
@@ -85,6 +107,8 @@ void Gun::update(void) {
 
 		Bullet* _bullet = (*m_Bullets)[i];
 		if (_bullet == nullptr) continue;
+		
+		bool bulletCollided = false;
 
 		_bullet->update(this->m_GameManager->getWindow());
 
@@ -92,9 +116,8 @@ void Gun::update(void) {
 			_bullet->getPosition().x + _bullet->getGlobalBounds().width >= WINDOW_X ||
 			_bullet->getPosition().y <= 0 ||
 			_bullet->getPosition().y + _bullet->getGlobalBounds().height >= WINDOW_Y) {
-			_bullet = nullptr;
-			delete _bullet;
 			m_Bullets->erase(m_Bullets->begin() + i);
+			bulletCollided = true;
 			break;
 		}
 
@@ -113,11 +136,11 @@ void Gun::update(void) {
 				_enemy->setHealth(_enemy->getHealth() - this->getDamage());
 				if (_enemy->getHealth() > 0)
 					_enemy->playSFX("WOUND");
-				_bullet = nullptr;
-				delete _bullet;
 				m_Bullets->erase(m_Bullets->begin() + i);
+				bulletCollided = true;
 				break;
 			}
 		}
+		if (bulletCollided) break;
 	}
 }

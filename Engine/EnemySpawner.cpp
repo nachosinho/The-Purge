@@ -53,10 +53,10 @@ void EnemySpawner::update(void) {
 
 		_enemy->render();
 		if (_enemy->getHealth() <= 0) {
-			this->m_GameManager->getKillCount()->setScore(this->m_GameManager->getKillCount()->getScore() + 1);
+			this->m_GameManager->getKillCount()->setScore(score + 1);
 			_enemy->reset();
-			_enemy->setMaxHealth(_enemy->getMaxHealth() + 10 * ((score / 5.f) - 1));
-			_enemy->setVelocity(_enemy->getVelocity() + 0.01f * ((score / 5.f) - 1));
+			_enemy->setMaxHealth(_enemy->getMaxHealth() * 1.1f);
+			_enemy->setVelocity(_enemy->getVelocity() * 1.1f);
 			continue;
 		}
 	}
