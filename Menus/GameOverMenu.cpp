@@ -23,7 +23,7 @@ GameOverMenu::GameOverMenu(GameManager* _gameManager)
 	this->m_LogoSprite.setColor(Color(255, 255, 255, 255));
 	this->m_LogoSprite.setPosition(WINDOW_X / 2 - this->m_LogoSprite.getGlobalBounds().width / 2, this->m_PlayButton.getPosition().y - this->m_LogoSprite.getGlobalBounds().height - 50.f);
 
-	if (!this->m_Font.loadFromFile("arial.ttf"))
+	if (!this->m_Font.loadFromFile("Assets/Fonts/Sitka.ttc"))
 		return;
 
 	this->m_PlayText.setFont(this->m_Font);

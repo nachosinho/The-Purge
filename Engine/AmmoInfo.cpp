@@ -15,7 +15,7 @@ AmmoInfo::AmmoInfo(Gun* _gun, RenderWindow* _renderWindow)
 	this->setPosition(10.f, WINDOW_Y - this->getGlobalBounds().height - 10.f);
 
 	this->m_AmmoFont = new Font;
-	if (!this->m_AmmoFont->loadFromFile("arial.ttf"))
+	if (!this->m_AmmoFont->loadFromFile("Assets/Fonts/Sitka.ttc"))
 		return;
 
 	this->m_AmmoText = new Text;

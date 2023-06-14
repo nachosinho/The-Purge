@@ -32,7 +32,7 @@ LootBox::LootBox(GameManager* _gameManager)
 	this->setScale(0.75f, 0.75f);
 
 	this->m_Font = new Font;
-	if (!this->m_Font->loadFromFile("arial.ttf"))
+	if (!this->m_Font->loadFromFile("Assets/Fonts/Sitka.ttc"))
 		return;
 
 	this->m_Text = new Text;
@@ -86,16 +86,16 @@ void LootBox::assignBonus(void) {
 		this->m_Player->getAmmoInfo()->updateText();
 		break;
 	case LootBox::BONUSTYPE::BULLET_VELOCITY:
-		playerWeapon->setBulletVelocity(playerWeapon->getBulletVelocity() * 1.1f);
+		playerWeapon->setBulletVelocity(playerWeapon->getBulletVelocity() * 1.25f);
 		break;
 	case LootBox::BONUSTYPE::RELOAD_TIME:
-		playerWeapon->setDelay(playerWeapon->getDelay() / 1.1f);
+		playerWeapon->setDelay(playerWeapon->getDelay() / 1.25f);
 		break;
 	case LootBox::BONUSTYPE::HEALTH:
-		this->m_Player->setMaxHealth(this->m_Player->getMaxHealth() * 1.1f);
+		this->m_Player->setMaxHealth(this->m_Player->getMaxHealth() * 1.25f);
 		break;
 	case LootBox::BONUSTYPE::MOVEMENT_VELOCITY:
-		this->m_Player->setVelocity(this->m_Player->getVelocity() * 1.1f);
+		this->m_Player->setVelocity(this->m_Player->getVelocity() * 1.25f);
 		break;
 	default:
 		break;

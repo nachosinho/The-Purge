@@ -26,7 +26,7 @@ PauseMenu::PauseMenu(GameManager* _gameManager)
 	this->m_ExitButton.setPosition(WINDOW_X / 2 - this->m_ExitButton.getSize().x / 2, 400.f);
 	this->m_ExitButton.setFillColor(Color(255, 0, 0, 153));
 
-	if (!this->m_TextFont.loadFromFile("arial.ttf"))
+	if (!this->m_TextFont.loadFromFile("Assets/Fonts/Sitka.ttc"))
 		return;
 
 	this->m_ReturnText.setFont(this->m_TextFont);

@@ -15,7 +15,7 @@ KillCount::KillCount(GameManager* _gameManager)
 		WINDOW_Y - this->getGlobalBounds().height - 5.f);
 
 	this->m_Font = new Font;
-	if (!this->m_Font->loadFromFile("arial.ttf"))
+	if (!this->m_Font->loadFromFile("Assets/Fonts/Sitka.ttc"))
 		return;
 
 	this->m_Text = new Text;
