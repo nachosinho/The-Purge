@@ -1,8 +1,8 @@
-#include "PauseMenu.h"
+#include "ScoreBoardMenu.h"
 #include "../Engine/GameManager.h"
 
-PauseMenu::PauseMenu(GameManager* _gameManager)
-	: Menu("PAUSE", _gameManager)
+ScoreBoardMenu::ScoreBoardMenu(GameManager* _gameManager)
+	: Menu("SCOREBOARD", _gameManager)
 {
 	this->m_GameState = GameManager::GAMESTATE::PAUSED;
 
@@ -42,7 +42,7 @@ PauseMenu::PauseMenu(GameManager* _gameManager)
 		this->m_ExitButton.getPosition().y + this->m_ExitButton.getSize().y / 2 - this->m_ExitText.getGlobalBounds().height);
 }
 
-void PauseMenu::handleInput(void) {
+void ScoreBoardMenu::handleInput(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
@@ -68,7 +68,7 @@ void PauseMenu::handleInput(void) {
 					this->m_GameManager->setMenu("PLAYING");
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
-					this->m_GameManager->exitGame();
+					_window->close();
 			}
 			break;
 
@@ -80,7 +80,7 @@ void PauseMenu::handleInput(void) {
 	}
 }
 
-void PauseMenu::render(void) {
+void ScoreBoardMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_BackgroundSprite);
 	this->m_GameManager->getWindow()->draw(this->m_LogoSprite);
 	this->m_GameManager->getWindow()->draw(this->m_ReturnButton);

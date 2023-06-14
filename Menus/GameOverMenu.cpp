@@ -74,7 +74,7 @@ void GameOverMenu::handleInput(void) {
 					this->m_GameManager->restartGame();
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
-					_window->close();
+					this->m_GameManager->exitGame();
 			} break;
 		}
 	}

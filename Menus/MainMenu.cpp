@@ -77,7 +77,7 @@ void MainMenu::handleInput(void) {
 				}
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
-					_window->close();
+					this->m_GameManager->exitGame();
 			} break;
 		}
 	}

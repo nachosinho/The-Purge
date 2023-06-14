@@ -5,6 +5,7 @@ GameManager::GameManager(void) {
 	this->m_Event = new Event;
 	this->m_Clock = new Clock;
 	this->m_WindowHandler = this->m_Window->getSystemHandle();
+	this->m_ScoreBoard = new ScoreBoard;
 
 	this->loadSettings();
 	this->loadLevels();
@@ -15,6 +16,16 @@ GameManager::GameManager(void) {
 	else this->restartGame();
 
 	this->render();
+}
+
+GameManager::~GameManager(void) {
+	if (this->m_ScoreBoard == nullptr)
+		return;
+
+	if (this->m_ScoreBoard->getScore() == nullptr)
+		return;
+
+	this->m_ScoreBoard->saveScoreBoard();
 }
 
 void GameManager::loadSettings(void) {
@@ -131,6 +142,11 @@ void GameManager::restartGame(void) {
 
 	this->m_Level = (*this->m_Levels)[rand() % this->m_Levels->size()];
 	this->m_Level->getSFX()->play();
+}
+
+void GameManager::exitGame(void) {
+	this->m_ScoreBoard->saveScoreBoard();
+	this->m_Window->close();
 }
 
 void GameManager::setElapsedTime(float _value) {

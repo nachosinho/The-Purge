@@ -5,6 +5,7 @@
 #include "../Levels/LevelsList.h"
 #include "../Menus/MenusList.h"
 #include "LootBox.h"
+#include "Scoreboard.h"
 
 class GameManager {
 private:
@@ -27,6 +28,8 @@ private:
 	LootBox* m_LootBox;
 	//SubMenu* m_SubMenu;
 
+	ScoreBoard* m_ScoreBoard;
+
 	void loadSettings(void);
 	void loadMenus(void);
 	void loadLevels(void);
@@ -46,6 +49,7 @@ public:
 	};
 
 	GameManager(void);
+	~GameManager(void);
 
 	Level* getCurrentLevel(void) { return this->m_Level; }
 	Player* getPlayer(void) { return this->m_Player; }
@@ -57,6 +61,7 @@ public:
 	EnemySpawner* getEnemySpawner(void) { return this->m_EnemySpawner; }
 	KillCount* getKillCount(void) { return this->m_KillCount; }
 	Menu* getMenu(void) { return this->m_Menu; }
+	ScoreBoard* getScoreBoard(void) { return this->m_ScoreBoard; }
 	
 	void setMenu(string);
 
@@ -64,4 +69,5 @@ public:
 	//Menu* getSubMenu(void) { return this->m_Menu; }
 
 	void restartGame(void);
+	void exitGame(void);
 };

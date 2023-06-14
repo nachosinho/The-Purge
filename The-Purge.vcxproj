@@ -139,7 +139,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -167,6 +167,7 @@
     <ClCompile Include="Engine\Melee.cpp" />
     <ClCompile Include="Engine\NPC.cpp" />
     <ClCompile Include="Engine\Player.cpp" />
+    <ClCompile Include="Engine\Scoreboard.cpp" />
     <ClCompile Include="Engine\SFX.cpp" />
     <ClCompile Include="Engine\Shotgun.cpp" />
     <ClCompile Include="Engine\Weapon.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Menus\GameOverMenu.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
     <ClCompile Include="Menus\PauseMenu.cpp" />
+    <ClCompile Include="Menus\ScoreBoardMenu.cpp" />
     <ClCompile Include="The-Purge.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +196,7 @@
     <ClInclude Include="Engine\Melee.h" />
     <ClInclude Include="Engine\NPC.h" />
     <ClInclude Include="Engine\Player.h" />
+    <ClInclude Include="Engine\Scoreboard.h" />
     <ClInclude Include="Engine\SFX.h" />
     <ClInclude Include="Engine\Shotgun.h" />
     <ClInclude Include="Engine\Weapon.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Menus\MenusList.h" />
     <ClInclude Include="Menus\PauseMenu.h" />
+    <ClInclude Include="Menus\ScoreBoardMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

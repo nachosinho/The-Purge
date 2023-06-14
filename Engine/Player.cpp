@@ -155,6 +155,14 @@ void Player::render(void) {
 
 	if (this->getHealth() <= 0) {
 		this->m_GameManager->setMenu("OVER");
+
+		if (this->m_GameManager->getScoreBoard() == nullptr)
+			return;
+
+		if (this->m_GameManager->getKillCount() == nullptr)
+			return;
+
+		this->m_GameManager->getScoreBoard()->addScore(this->m_GameManager->getKillCount()->getScore());
 		return;
 	}
 
