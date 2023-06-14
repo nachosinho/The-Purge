@@ -10,14 +10,16 @@ private:
 
 	int m_Min, m_Max;
 	
-	class Rifle* m_Rifle;
+	class Gun* m_Gun;
 public:
-	AmmoInfo(class Rifle*, RenderWindow*);
+	AmmoInfo(class Gun*, RenderWindow*);
 
 	void updateText(void);
 
 	void setMin(int);
 	void setMax(int);
+
+	void changeGun(class Gun*);
 
 	void render(void);
 };

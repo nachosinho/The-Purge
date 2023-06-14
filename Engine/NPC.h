@@ -29,6 +29,8 @@ public:
 	void setHealth(int);
 	void setMaxHealth(int);
 
+	void equipWeapon(Weapon*);
+
 	Animation* getCurrentAnimation(void) { return this->m_CurrentAnimation; }
 
 	virtual void loadAnimations(void) = 0;

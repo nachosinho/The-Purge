@@ -1,21 +1,9 @@
 #pragma once
-#include "Weapon.h"
+#include "Gun.h"
 
-class Rifle : public Weapon {
-private:
-	int m_Ammo, m_MaxAmmo;
-	vector<Bullet*>* m_Bullets;
-
+class Rifle : public Gun {
 public:
-	Rifle(class GameManager*, class Player*);
+	Rifle(class GameManager*, class NPC*);
 
-	int getAmmo(void) { return this->m_Ammo; }
-	int getMaxAmmo(void) { return this->m_MaxAmmo; }
-
-	void setAmmo(int);
-	void setMaxAmmo(int);
-
-	void reload(void);
 	void shoot(void);
-	void update(void);
 };

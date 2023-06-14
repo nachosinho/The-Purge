@@ -3,7 +3,7 @@
 
 Player::Player(GameManager* _gameManager) {
 	this->m_GameManager = _gameManager;
-	this->m_Weapon = new Rifle(_gameManager, this);
+	this->m_Weapons = new vector<Weapon*>{ new Pistol(this->m_GameManager, this), new Rifle(this->m_GameManager, this) };
 
 	this->setScale(0.25f, 0.25f);
 	this->setPosition(WINDOW_X / 2.f - this->getGlobalBounds().width / 2.f, WINDOW_Y / 2.f - this->getGlobalBounds().height / 2.f);
@@ -11,8 +11,11 @@ Player::Player(GameManager* _gameManager) {
 	this->m_HealthBar = new HealthBar(this, this->m_GameManager->getWindow());
 	this->m_HealthBar->setColor(Color::Green);
 
-	this->m_AmmoInfo = new AmmoInfo(dynamic_cast<Rifle*>(this->m_Weapon), this->m_GameManager->getWindow());
+	this->equipWeapon((*this->m_Weapons)[Weapon::WEAPONTYPE::RIFLE]);
+
+	this->m_AmmoInfo = new AmmoInfo(dynamic_cast<Gun*>(this->m_Weapon), this->m_GameManager->getWindow());
 	this->m_AmmoInfo->updateText();
+
 
 	this->loadSFXs();
 	this->loadAnimations();
@@ -26,25 +29,33 @@ void Player::loadSFXs(void) {
 }
 
 void Player::loadAnimations(void) {
-	this->addAnimation(new Animation(this, "IDLE", "Assets/Textures/Player/Idle.png", { 313, 207 }, 20));
-	this->addAnimation(new Animation(this, "ATTACK", "Assets/Textures/Player/Attack.png", { 313, 207 }, 3));
-	this->addAnimation(new Animation(this, "MOVE", "Assets/Textures/Player/Move.png", { 313, 207 }, 20));
-	this->addAnimation(new Animation(this, "RELOAD", "Assets/Textures/Player/Reload.png", { 313, 207 }, 20));
+	this->addAnimation(new Animation(this, "RIFLE_IDLE", "Assets/Textures/Player/Rifle_Idle.png", { 313, 207 }, 20));
+	this->addAnimation(new Animation(this, "RIFLE_ATTACK", "Assets/Textures/Player/Rifle_Attack.png", { 313, 207 }, 3));
+	this->addAnimation(new Animation(this, "RIFLE_MOVE", "Assets/Textures/Player/Rifle_Move.png", { 313, 207 }, 20));
+	this->addAnimation(new Animation(this, "RIFLE_RELOAD", "Assets/Textures/Player/Rifle_Reload.png", { 313, 207 }, 20));
+	this->addAnimation(new Animation(this, "RIFLE_SWITCH", "Assets/Textures/Player/Rifle_Switch.png", { 313, 310 }, 15));
 
-	this->setAnimation("IDLE");
+	this->addAnimation(new Animation(this, "PISTOL_IDLE", "Assets/Textures/Player/Pistol_Idle.png", { 253, 216 }, 20));
+	this->addAnimation(new Animation(this, "PISTOL_ATTACK", "Assets/Textures/Player/Pistol_Attack.png", { 255, 215 }, 3));
+	this->addAnimation(new Animation(this, "PISTOL_MOVE", "Assets/Textures/Player/Pistol_Move.png", { 258, 220 }, 20));
+	this->addAnimation(new Animation(this, "PISTOL_RELOAD", "Assets/Textures/Player/Pistol_Reload.png", { 260, 230 }, 15));
+	this->addAnimation(new Animation(this, "PISTOL_SWITCH", "Assets/Textures/Player/Pistol_Switch.png", { 291, 256 }, 15));
+
+	this->setAnimation(this->m_Weapon->getName() + "_IDLE");
 }
 
 void Player::animationControl(void) {
-	if (this->getCurrentAnimation()->getName() == "ATTACK" ||
-		this->getCurrentAnimation()->getName() == "RELOAD")
+	if (this->getCurrentAnimation()->getName() == this->m_Weapon->getName() + "_ATTACK" ||
+		this->getCurrentAnimation()->getName() == this->m_Weapon->getName() + "_RELOAD" ||
+		this->getCurrentAnimation()->getName() == this->m_Weapon->getName() + "_SWITCH")
 		return;
 
 	if (Keyboard::isKeyPressed(Keyboard::W) ||
 		Keyboard::isKeyPressed(Keyboard::S) ||
 		Keyboard::isKeyPressed(Keyboard::A) ||
 		Keyboard::isKeyPressed(Keyboard::D))
-		this->setAnimation("MOVE");
-	else this->setAnimation("IDLE");
+		this->setAnimation(this->m_Weapon->getName() + "_MOVE");
+	else this->setAnimation(this->m_Weapon->getName() + "_IDLE");
 }
 
 void Player::moveControl(void) {
@@ -76,9 +87,20 @@ void Player::moveControl(void) {
 		this->move(0.f, -this->getVelocity());
 
 	else if (Keyboard::isKeyPressed(Keyboard::R))
-		dynamic_cast<Rifle*>(this->m_Weapon)->reload();
+		dynamic_cast<Gun*>(this->m_Weapon)->reload();
+
 	else if (Mouse::isButtonPressed(Mouse::Left))
-		dynamic_cast<Rifle*>(this->m_Weapon)->shoot();
+		dynamic_cast<Gun*>(this->m_Weapon)->shoot();
+
+	else if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+		if (dynamic_cast<Gun*>(this->m_Weapon)->getName() != "PISTOL")
+			dynamic_cast<Gun*>(this->m_Weapon)->switchWeapon(Weapon::WEAPONTYPE::PISTOL);
+	}
+
+	else if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+		if (dynamic_cast<Gun*>(this->m_Weapon)->getName() != "RIFLE")
+			dynamic_cast<Gun*>(this->m_Weapon)->switchWeapon(Weapon::WEAPONTYPE::RIFLE);
+	}
 }
 
 void Player::reset(void) {

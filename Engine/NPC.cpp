@@ -1,6 +1,10 @@
 #include "NPC.h"
 #include "GameManager.h"
 
+#include "Melee.h"
+#include "Pistol.h"
+#include "Rifle.h"
+
 NPC::NPC(void)
 	: m_MaxHealth(100), m_Health(100), m_Velocity(1.f)
 {
@@ -37,6 +41,18 @@ void NPC::setMaxHealth(int _value) {
 	this->m_MaxHealth = _value;
 	this->m_Health = this->m_MaxHealth;
 	this->m_HealthBar->setPercentage(1.f * this->getHealth() / this->m_MaxHealth);
+}
+
+void NPC::equipWeapon(Weapon* _weapon) {
+	if (_weapon == nullptr)
+		return;
+
+	this->m_Weapon = _weapon;
+
+	if (dynamic_cast<Player*>(this)->getAmmoInfo() == nullptr)
+		return;
+
+	dynamic_cast<Player*>(this)->getAmmoInfo()->changeGun(dynamic_cast<Gun*>(this->m_Weapon));
 }
 
 void NPC::addAnimation(Animation* _animation) {

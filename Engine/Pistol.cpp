@@ -1,8 +1,8 @@
 #include "GameManager.h"
-#include "Rifle.h"
+#include "Pistol.h"
 
-Rifle::Rifle(GameManager* _gameManager, NPC* _npc)
-: Gun(_gameManager, _npc)
+Pistol::Pistol(GameManager* _gameManager, NPC* _npc)
+	: Gun(_gameManager, _npc)
 {
 	if (m_GameManager == nullptr)
 		return;
@@ -10,15 +10,14 @@ Rifle::Rifle(GameManager* _gameManager, NPC* _npc)
 	if (this->getOwner() == nullptr)
 		return;
 
-	this->m_Name = "RIFLE";
-	this->m_Bullets = new vector<Bullet*>;
-	this->setMaxAmmo(30);
-	this->setDamage(10);
-	this->setDelay(0.05f);
+	this->m_Name = "PISTOL";
+	this->setDamage(40);
+	this->setMaxAmmo(7);
+	this->setDelay(0.5f);
 	this->setCooldown(this->getDelay());
 }
 
-void Rifle::shoot(void) {
+void Pistol::shoot(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
@@ -32,11 +31,11 @@ void Rifle::shoot(void) {
 
 	Animation* anim = this->getOwner()->getCurrentAnimation();
 
-	if (anim->getName() != "RIFLE_MOVE" &&
-		anim->getName() != "RIFLE_IDLE")
+	if (anim->getName() != "PISTOL_MOVE" &&
+		anim->getName() != "PISTOL_IDLE")
 		return;
 
-	this->getOwner()->setAnimation("RIFLE_ATTACK");
+	this->getOwner()->setAnimation("PISTOL_ATTACK");
 	this->m_Bullets->push_back(new Bullet(this));
 	this->getOwner()->playSFX("ATTACK");
 }

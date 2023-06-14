@@ -40,7 +40,7 @@ using std::unique_ptr;
 
 #define DISABLE_TASKBAR TRUE
 #define ENABLE_CONSOLE TRUE
-#define DEBUGGING FALSE
+#define DEBUGGING TRUE
 
 const string GAME_TITLE = "The Purge";
 

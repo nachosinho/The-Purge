@@ -1,8 +1,11 @@
 #include "GameManager.h"
-#include "Weapon.h"
+
+#include "Melee.h"
+#include "Pistol.h"
+#include "Rifle.h"
 
 Weapon::Weapon(GameManager* _gameManager, NPC* _player)
-	: m_Damage(1), m_Delay(0.00005f), m_Cooldown(0.00005f)
+	: m_Damage(1), m_Name("NULL"), m_Delay(0.05f), m_Cooldown(0.05f), m_NextWeapon(-1)
 {
 	this->m_GameManager = _gameManager;
 	this->m_Owner = _player;
@@ -12,6 +15,21 @@ Weapon::Weapon(GameManager* _gameManager, NPC* _player)
 
 	if (this->getOwner() == nullptr)
 		return;
+
+}
+
+void Weapon::equipNextWeapon(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	if (this->m_Owner == nullptr)
+		return;
+
+	if (this->m_NextWeapon == -1)
+		return;
+
+	dynamic_cast<Player*>(this->m_Owner)->equipWeapon((*dynamic_cast<Player*>(this->m_Owner)->getWeapons())[this->m_NextWeapon]);
+	this->m_NextWeapon = -1;
 }
 
 void Weapon::setDamage(int _value) {
@@ -27,4 +45,22 @@ void Weapon::setCooldown(float _value) {
 void Weapon::setDelay(float _value) {
 	if (_value < 0.f) _value = 0.f;
 	this->m_Delay = _value;
+}
+
+void Weapon::switchWeapon(int _weaponType) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	if (this->m_Owner == nullptr)
+		return;
+
+	Animation* anim = this->m_Owner->getCurrentAnimation();
+
+	if (anim->getName() != this->getName() + "_MOVE" &&
+		anim->getName() != this->getName() + "_IDLE")
+		return;
+
+	this->m_Owner->setAnimation(this->getName() + "_SWITCH");
+	this->m_Owner->playSFX(this->getName() + "_SWITCH");
+	this->m_NextWeapon = _weaponType;
 }

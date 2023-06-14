@@ -1,11 +1,11 @@
 #include "AmmoInfo.h"
 #include "Rifle.h"
 
-AmmoInfo::AmmoInfo(Rifle* _rifle, RenderWindow* _renderWindow)
+AmmoInfo::AmmoInfo(Gun* _gun, RenderWindow* _renderWindow)
 	: m_Min(0), m_Max(0)
 {
 	this->m_RenderWindow = _renderWindow;
-	this->m_Rifle = _rifle;
+	this->m_Gun = _gun;
 
 	this->m_AmmoTexture = new Texture;
 	if (!this->m_AmmoTexture->loadFromFile("Assets/Textures/Objects/Bullet.png"))
@@ -33,16 +33,11 @@ void AmmoInfo::updateText(void) {
 	if (this->m_AmmoText == nullptr)
 		return;
 
-	if (this->m_Rifle == nullptr)
+	if (this->m_Gun == nullptr)
 		return;
 
-	Rifle* rifle = dynamic_cast<Rifle*>(this->m_Rifle);
-
-	if (rifle == nullptr)
-		return;
-
-	this->setMin(rifle->getAmmo());
-	this->setMax(rifle->getMaxAmmo());
+	this->setMin(this->m_Gun->getAmmo());
+	this->setMax(this->m_Gun->getMaxAmmo());
 
 	string text;
 	text += to_string(this->m_Min) + "/" + to_string(this->m_Max);
@@ -57,11 +52,19 @@ void AmmoInfo::setMin(int _value) {
 	this->m_Min = _value;
 }
 
+void AmmoInfo::changeGun(Gun* _gun) {
+	if (_gun == nullptr)
+		return;
+
+	this->m_Gun = _gun;
+	this->updateText();
+}
+
 void AmmoInfo::render(void) {
 	if (this->m_RenderWindow == nullptr)
 		return;
 
-	if (this->m_Rifle == nullptr)
+	if (this->m_Gun == nullptr)
 		return;	
 
 	if (this->m_AmmoText == nullptr)
