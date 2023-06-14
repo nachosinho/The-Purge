@@ -170,6 +170,7 @@
     <ClCompile Include="Engine\SFX.cpp" />
     <ClCompile Include="Engine\Shotgun.cpp" />
     <ClCompile Include="Engine\Weapon.cpp" />
+    <ClCompile Include="Engine\LootBox.cpp" />
     <ClCompile Include="Menus\GameOverMenu.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
     <ClCompile Include="Menus\PauseMenu.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Levels\Cemetery.h" />
     <ClInclude Include="Levels\LevelsList.h" />
     <ClInclude Include="Levels\Park.h" />
+    <ClInclude Include="Engine\LootBox.h" />
     <ClInclude Include="Menus\GameOverMenu.h" />
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Menus\MenusList.h" />

@@ -48,4 +48,4 @@ const int WINDOW_X = 800;
 const int WINDOW_Y = 600;
 const int FRAMERATE_LIMIT = 60;
 
-const float M_PI = 3.14159265358979323846;
+const float M_PI = 3.14159;

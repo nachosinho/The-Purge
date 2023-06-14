@@ -32,6 +32,7 @@ public:
 	void equipWeapon(Weapon*);
 
 	Animation* getCurrentAnimation(void) { return this->m_CurrentAnimation; }
+	Weapon* getWeapon(void) { return this->m_Weapon; }
 
 	virtual void loadAnimations(void) = 0;
 	void addAnimation(Animation*);

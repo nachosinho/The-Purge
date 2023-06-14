@@ -4,6 +4,7 @@
 #include "KillCount.h"
 #include "../Levels/LevelsList.h"
 #include "../Menus/MenusList.h"
+#include "LootBox.h"
 
 class GameManager {
 private:
@@ -23,6 +24,7 @@ private:
 	Level* m_Level;
 	Menu* m_Menu;
 	KillCount* m_KillCount;
+	LootBox* m_LootBox;
 	//SubMenu* m_SubMenu;
 
 	void loadSettings(void);

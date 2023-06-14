@@ -98,8 +98,12 @@ void GameOverMenu::reload(void) {
 	if (this->m_GameManager == nullptr)
 		return;
 
-	this->m_SFX->stop();
 	this->m_Timer = 0;
+
+	if (this->m_SFX == nullptr)
+		return;
+
+	this->m_SFX->stop();
 }
 
 void GameOverMenu::update(void) {

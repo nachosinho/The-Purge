@@ -45,7 +45,11 @@ void GameManager::loadMenus(void) {
 }
 
 void GameManager::loadLevels(void) {
-	this->m_Levels = new vector<Level*> { new Bunkers(this), new Cemetery(this), new Park(this) };
+	this->m_Levels = new vector<Level*> {
+		new Bunkers(this),
+		new Cemetery(this),
+		new Park(this)
+	};
 }
 
 void GameManager::eventManager(void) {
@@ -80,6 +84,8 @@ void GameManager::setMenu(string _mapKey) {
 
 	if (this->m_Menu == nullptr) {
 		this->m_Menu = (*this->m_Menus)[_mapKey];
+
+		this->m_Menu->reload();
 		this->m_GameState = this->m_Menu->getGameState();
 
 		if (this->m_Menu->getSFX() == nullptr)
@@ -91,6 +97,7 @@ void GameManager::setMenu(string _mapKey) {
 	else if (this->m_Menu->getName() != _mapKey) {
 		this->m_Menu->reload();
 		this->m_Menu = (*this->m_Menus)[_mapKey];
+		this->m_Menu->reload();
 		this->m_GameState = this->m_Menu->getGameState();
 
 		if (this->m_Menu->getSFX() == nullptr)
@@ -101,23 +108,12 @@ void GameManager::setMenu(string _mapKey) {
 }
 
 void GameManager::restartGame(void) {
-	delete this->m_Menu;
-	this->m_Menu = nullptr;
-
-	/*delete this->m_EnemySpawner;
-	this->m_EnemySpawner = nullptr;
-
-	delete this->m_Player;
-	this->m_Player = nullptr;
-
-	delete this->m_KillCount;
-	this->m_KillCount = nullptr;
-
-	delete this->m_Level;
-	this->m_Level = nullptr;*/
-
 	if (this->m_Level != nullptr)
 		this->m_Level->getSFX()->stop();
+
+	if (this->m_Menu != nullptr)
+		this->m_Menu->reload();
+	this->m_Menu = nullptr;
 
 	this->m_GameState = GAMESTATE::PLAYING;
 
@@ -129,6 +125,9 @@ void GameManager::restartGame(void) {
 
 	if (this->m_KillCount == nullptr) this->m_KillCount = new KillCount(this);
 	else this->m_KillCount->setScore(0);
+
+	if (this->m_LootBox == nullptr) this->m_LootBox = new LootBox(this);
+	else this->m_LootBox->reset();
 
 	this->m_Level = (*this->m_Levels)[rand() % this->m_Levels->size()];
 	this->m_Level->getSFX()->play();
@@ -163,6 +162,9 @@ void GameManager::render() {
 			this->m_Window->display();
 			continue;
 		}
+
+		if (this->m_LootBox != nullptr)
+			this->m_LootBox->render();
 
 		if (this->getEnemySpawner() != nullptr)
 			this->getEnemySpawner()->update();
