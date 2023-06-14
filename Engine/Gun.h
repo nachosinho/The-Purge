@@ -12,6 +12,7 @@ public:
 	float getBulletVelocity(void) { return this->m_BulletVelocity; }
 	int getAmmo(void) { return this->m_Ammo; }
 	int getMaxAmmo(void) { return this->m_MaxAmmo; }
+	vector<Bullet*>* getBullets(void) { return this->m_Bullets; }
 
 	void setBulletVelocity(float);
 	void setAmmo(int);

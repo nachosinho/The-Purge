@@ -158,17 +158,9 @@ void Player::render(void) {
 		return;
 	}
 
-	RectangleShape rec;
-	rec.setFillColor(Color::Red);
-	rec.setSize(Vector2f(5.f, 5.f));
-	Vector2f position = this->getPosition();
-	rec.setPosition(position.x + this->getGlobalBounds().width / 1.f * this->getScale().x * cos((this->getRotation() + 30.f) * M_PI / 180.f),
-		position.y + this->getGlobalBounds().height / 1.f * this->getScale().y * sin((this->getRotation() + 30.f) * M_PI / 180.f));
-
 	this->m_CurrentAnimation->render(this->m_GameManager->getElapsedTime());
 	this->m_GameManager->getWindow()->draw(*this);
 	this->m_Weapon->update();
 	this->m_HealthBar->render();
 	this->m_AmmoInfo->render();
-	this->m_GameManager->getWindow()->draw(rec);
 }

@@ -80,24 +80,6 @@ void Enemy::moveControl(void) {
 		this->setRotation(rotation);
 		this->move(position);
 	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());
-
-	//
-
-	Player* player = this->m_GameManager->getPlayer();
-	Vector2f playerPosition = { player->getPosition().x + 100.f * player->getScale().x * cos((player->getRotation() + 30.f) * M_PI / 180.f),
-		player->getPosition().y + 100.f * this->getScale().y * sin((this->getRotation() + 30.f * M_PI / 180.f))};
-
-	//Vector2f enemyPosition = { this->getPosition().x + this->getGlobalBounds().width * 2.f * this->getScale().x * cos((this->getRotation() + 30.f) * M_PI / 180.f),
-	//	this->getPosition().y + this->getGlobalBounds().height * 2.f * this->getScale().y * sin((this->getRotation() + 30.f) * M_PI / 180.f) };
-
-	Vector2f delta = playerPosition - enemyPosition;
-	//float rotation = atan2(delta.y, delta.x) * 180.f / M_PI;
-	//float distance = sqrt(pow(playerPosition.x - enemyPosition.x, 2) + pow(playerPosition.y - enemyPosition.y, 2));
-
-	/*if (distance > 25.f) {
-		this->rotate(this->getRotation() - rotation);
-		this->move(this->m_Velocity * cos(rotation * M_PI / 180.f), this->m_Velocity * sin(rotation * M_PI / 180.f));
-	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());*/
 }
 
 void Enemy::reset(void) {

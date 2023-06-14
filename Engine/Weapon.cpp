@@ -74,6 +74,7 @@ void Weapon::reset(void) {
 	case Weapon::WEAPONTYPE::PISTOL:
 	case Weapon::WEAPONTYPE::RIFLE:
 	case Weapon::WEAPONTYPE::SHOTGUN:
+		dynamic_cast<Gun*>(this)->getBullets()->clear();
 		dynamic_cast<Gun*>(this)->setBulletVelocity(this->DEFAULT_BULLET_VELOCITY[this->m_WeaponType]);
 		dynamic_cast<Gun*>(this)->setMaxAmmo(this->DEFAULT_MAX_AMMO[this->m_WeaponType]);
 	case Weapon::WEAPONTYPE::MELEE:
