@@ -87,9 +87,6 @@
     <ClCompile Include="Engine\LootBox.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Menus\ScoreBoardMenu.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Scoreboard.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Engine\LootBox.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Menus\ScoreBoardMenu.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scoreboard.h">

@@ -51,7 +51,7 @@ using std::ofstream;
 
 #define DISABLE_TASKBAR TRUE
 #define ENABLE_CONSOLE TRUE
-#define DEBUGGING TRUE
+#define DEBUGGING FALSE
 
 const string GAME_TITLE = "The Purge";
 

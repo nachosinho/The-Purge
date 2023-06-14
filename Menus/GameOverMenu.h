@@ -6,7 +6,7 @@ private:
 	Texture m_LogoTexture;
 	Sprite m_LogoSprite;
 	Font m_Font;
-	Text m_PlayText, m_ExitText;
+	Text m_PlayText, m_ExitText, m_ScoreBoardText;
 	RectangleShape m_PlayButton, m_ExitButton;
 	int m_Timer;
 

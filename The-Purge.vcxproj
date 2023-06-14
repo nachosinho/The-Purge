@@ -175,7 +175,6 @@
     <ClCompile Include="Menus\GameOverMenu.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
     <ClCompile Include="Menus\PauseMenu.cpp" />
-    <ClCompile Include="Menus\ScoreBoardMenu.cpp" />
     <ClCompile Include="The-Purge.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +208,6 @@
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Menus\MenusList.h" />
     <ClInclude Include="Menus\PauseMenu.h" />
-    <ClInclude Include="Menus\ScoreBoardMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,9 @@
 #include "Scoreboard.h"
 
+bool sortByScore(const Score& _a, const Score& _b) {
+	return _b.m_Score < _a.m_Score;
+}
+
 Score::Score(string _name, int _score)
 	: m_Name(_name), m_Score(_score) {}
 
@@ -22,10 +26,10 @@ void ScoreBoard::loadScoreBoard(void) {
 		int value;
 		char comma;
 		stringstream lineStream(line);
-		if (getline(lineStream, key, ',') &&
-			lineStream >> value &&
-			lineStream >> comma)
-			this->m_ScoreVec->push_back(Score(key, value));
+		getline(lineStream, key, ',');
+		lineStream >> value;
+		lineStream >> comma;
+		this->m_ScoreVec->push_back(Score(key, value));
 	}
 
 	if (this->m_ScoreVec->size() > 5)
@@ -49,9 +53,7 @@ void ScoreBoard::saveScoreBoard(void) {
 		output.close();
 	}
 }
-bool sortByScore(const Score& _a, const Score& _b) {
-	return _a.m_Score < _b.m_Score;
-}
+
 void ScoreBoard::addScore(int _score) {
 	if (this->m_ScoreVec == nullptr)
 		return;

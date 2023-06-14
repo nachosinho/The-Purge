@@ -38,11 +38,12 @@ GameOverMenu::GameOverMenu(GameManager* _gameManager)
 	this->m_ExitText.setPosition(this->m_ExitButton.getPosition().x + this->m_ExitButton.getSize().x / 2 - this->m_ExitText.getGlobalBounds().width / 2,
 		this->m_ExitButton.getPosition().y + this->m_ExitButton.getSize().y / 2 - this->m_ExitText.getGlobalBounds().height);
 
-	////if (!this->m_Buffer.loadFromFile("Assets/Sounds/Music/GameOverMenu.ogg"))
-	//	//return;
-	////this->m_Sound.setBuffer(this->m_Buffer);
-	//this->m_Sound.setLoop(true);
-	//this->m_Sound.play();
+	this->m_ScoreBoardText.setFont(this->m_Font);
+	this->m_ScoreBoardText.setString("Scoreboard");
+	this->m_ScoreBoardText.setFillColor(Color(161, 0, 0));
+	this->m_ScoreBoardText.setOutlineColor(Color::Black);
+	this->m_ScoreBoardText.setOutlineThickness(1.f);
+	this->m_ScoreBoardText.setPosition(5.f, 5.f);
 }
 
 void GameOverMenu::handleInput(void) {
@@ -90,6 +91,21 @@ void GameOverMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_ExitButton);
 	this->m_GameManager->getWindow()->draw(this->m_PlayText);
 	this->m_GameManager->getWindow()->draw(this->m_ExitText);
+	this->m_GameManager->getWindow()->draw(this->m_ScoreBoardText);
+
+	int height = 0;
+	for (Score _score : *this->m_GameManager->getScoreBoard()->getScore()) {
+		Text scoreText;
+		scoreText.setFont(this->m_Font);
+		scoreText.setString(_score.m_Name + " : " + to_string(_score.m_Score));
+		scoreText.setCharacterSize(24);
+		scoreText.setFillColor(Color(250, 125, 0));
+		scoreText.setOutlineColor(Color::Black);
+		scoreText.setOutlineThickness(1.f);
+		scoreText.setPosition(5.f, 5.f + 1.5f * scoreText.getGlobalBounds().height + (scoreText.getGlobalBounds().height + 5.f) * height);
+		this->m_GameManager->getWindow()->draw(scoreText);
+		height++;
+	}
 
 	this->handleInput();
 }
