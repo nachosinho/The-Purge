@@ -8,9 +8,10 @@ GameManager::GameManager(void) {
 
 	this->loadSettings();
 	this->loadLevels();
+	this->loadMenus();
 
 	if (!DEBUGGING)
-		this->setMenu(new MainMenu(this), GAMESTATE::MAINMENU);
+		this->setMenu("MAINMENU");
 	else this->restartGame();
 
 	this->render();
@@ -36,6 +37,13 @@ void GameManager::loadSettings(void) {
 	}
 }
 
+void GameManager::loadMenus(void) {
+	this->m_Menus = new map<string, Menu*>;
+	this->addMenu(new MainMenu(this));
+	this->addMenu(new PauseMenu(this));
+	this->addMenu(new GameOverMenu(this));
+}
+
 void GameManager::loadLevels(void) {
 	this->m_Levels = new vector<Level*> { new Bunkers(this), new Cemetery(this), new Park(this) };
 }
@@ -53,24 +61,42 @@ void GameManager::eventManager(void) {
 		case Event::KeyPressed:
 			if (this->m_Event->key.code == Keyboard::Escape &&
 				this->getGameStatus() == GAMESTATE::PLAYING)
-				this->setMenu(new PauseMenu(this), GAMESTATE::PAUSED);
+				this->setMenu("PAUSE");
 			break;
 		}
 }
 
-void GameManager::setMenu(Menu* _menu, int _state) {
-	this->m_GameState = _state;
+void GameManager::addMenu(Menu* _menu) {
+	if (this->m_Menus->find(_menu->getName()) != this->m_Menus->end()) return;
+	this->m_Menus->insert(pair<string, Menu*>(_menu->getName(), _menu));
+}
 
-	delete this->m_Menu;
-	this->m_Menu = _menu;
+void GameManager::setMenu(string _mapKey) {
+	if (this->m_Menus->find(_mapKey) == this->m_Menus->end()) {
+		this->m_Menu = nullptr;
+		this->m_GameState = GameManager::GAMESTATE::PLAYING;
+		return;
+	}
 
-	switch (this->m_GameState) {
-	case GAMESTATE::MAINMENU:
-	case GAMESTATE::OVER:
-		this->m_Player = nullptr;
-		this->m_KillCount = nullptr;
-		this->m_Level = nullptr;
-		break;
+	if (this->m_Menu == nullptr) {
+		this->m_Menu = (*this->m_Menus)[_mapKey];
+		this->m_GameState = this->m_Menu->getGameState();
+
+		if (this->m_Menu->getSFX() == nullptr)
+			return;
+
+		this->m_Menu->getSFX()->play();
+	}
+
+	else if (this->m_Menu->getName() != _mapKey) {
+		this->m_Menu->reload();
+		this->m_Menu = (*this->m_Menus)[_mapKey];
+		this->m_GameState = this->m_Menu->getGameState();
+
+		if (this->m_Menu->getSFX() == nullptr)
+			return;
+
+		this->m_Menu->getSFX()->play();
 	}
 }
 
@@ -123,7 +149,7 @@ void GameManager::render() {
 
 		if (GetForegroundWindow() != this->m_WindowHandler &&
 			this->getGameStatus() == GAMESTATE::PLAYING)
-			this->setMenu(new PauseMenu(this), GAMESTATE::PAUSED);
+			this->setMenu("PAUSE");
 
 		this->m_Window->clear(Color::Black);
 		//
@@ -133,7 +159,7 @@ void GameManager::render() {
 		if (this->getMenu() != nullptr)
 			this->getMenu()->render();
 
-		if (this->getGameStatus() == GAMESTATE::PAUSED) {
+		if (this->getGameStatus() != GAMESTATE::PLAYING) {
 			this->m_Window->display();
 			continue;
 		}

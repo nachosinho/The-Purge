@@ -106,7 +106,7 @@ void Player::render(void) {
 	this->moveControl();
 
 	if (this->getHealth() <= 0) {
-		this->m_GameManager->setMenu(new GameOverMenu(this->m_GameManager), GameManager::GAMESTATE::OVER);
+		this->m_GameManager->setMenu("OVER");
 		return;
 	}
 

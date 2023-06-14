@@ -2,8 +2,9 @@
 #include "../Engine/GameManager.h"
 
 MainMenu::MainMenu(GameManager* _gameManager)
-	: m_Timer(0)
+	: Menu("MAINMENU", _gameManager), m_Timer(0)
 {
+	this->m_GameState = GameManager::GAMESTATE::MAINMENU;
 	this->m_GameManager = _gameManager;
 
 	if (!m_BackgroundTexture.loadFromFile("Assets/Textures/Interface/MainMenu.png"))
@@ -41,11 +42,8 @@ MainMenu::MainMenu(GameManager* _gameManager)
 	this->m_ExitText.setPosition(this->m_ExitButton.getPosition().x + this->m_ExitButton.getSize().x / 2 - this->m_ExitText.getGlobalBounds().width / 2,
 		this->m_ExitButton.getPosition().y + this->m_ExitButton.getSize().y / 2 - this->m_ExitText.getGlobalBounds().height);
 
-	if (!this->m_Buffer.loadFromFile("Assets/Sounds/Music/MainMenu.ogg"))
-		return;
-	this->m_Sound.setBuffer(this->m_Buffer);
-	this->m_Sound.setLoop(true);
-	this->m_Sound.play();
+	this->m_SFX = new SFX("THEME", "Assets/Sounds/Music/MainMenu.ogg");
+	this->m_SFX->setLoop(true);
 }
 
 void MainMenu::handleInput(void) {
@@ -74,9 +72,8 @@ void MainMenu::handleInput(void) {
 
 				Vector2f mousePos = Vector2f(_event->mouseButton.x * 1.0f, _event->mouseButton.y * 1.0f);
 				if (this->m_PlayButton.getGlobalBounds().contains(mousePos)) {
-					this->m_Sound.stop();
+					this->m_SFX->stop();
 					this->m_GameManager->restartGame();
-					//this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
 				}
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
@@ -99,6 +96,14 @@ void MainMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_ExitText);
 
 	this->handleInput();
+}
+
+void MainMenu::reload(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	this->m_SFX->stop();
+	this->m_Timer = 0;
 }
 
 void MainMenu::update(void) {

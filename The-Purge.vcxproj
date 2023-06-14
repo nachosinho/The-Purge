@@ -159,6 +159,7 @@
     <ClCompile Include="Engine\GameManager.cpp" />
     <ClCompile Include="Engine\KillCount.cpp" />
     <ClCompile Include="Engine\Level.cpp" />
+    <ClCompile Include="Engine\Menu.cpp" />
     <ClCompile Include="Engine\Rifle.cpp" />
     <ClCompile Include="Engine\HealthBar.cpp" />
     <ClCompile Include="Engine\Melee.cpp" />

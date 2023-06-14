@@ -16,6 +16,7 @@ private:
 	float m_ElapsedTime;
 
 	vector<Level*>* m_Levels;
+	map<string, Menu*>* m_Menus;
 
 	Player* m_Player;
 	EnemySpawner* m_EnemySpawner;
@@ -25,10 +26,12 @@ private:
 	//SubMenu* m_SubMenu;
 
 	void loadSettings(void);
+	void loadMenus(void);
 	void loadLevels(void);
 	void eventManager(void);
 
 	void setElapsedTime(float);
+	void addMenu(Menu*);
 
 	void render(void);
 
@@ -53,7 +56,7 @@ public:
 	KillCount* getKillCount(void) { return this->m_KillCount; }
 	Menu* getMenu(void) { return this->m_Menu; }
 	
-	void setMenu(Menu*, int);
+	void setMenu(string);
 
 	//void setSubMenu(Menu*, int);
 	//Menu* getSubMenu(void) { return this->m_Menu; }

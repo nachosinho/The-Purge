@@ -8,8 +8,6 @@ private:
 	Font m_Font;
 	Text m_PlayText, m_ExitText;
 	RectangleShape m_PlayButton, m_ExitButton;
-	SoundBuffer m_Buffer;
-	Sound m_Sound;
 	int m_Timer;
 
 public:
@@ -17,5 +15,6 @@ public:
 	~GameOverMenu() {}
 	void handleInput(void);
 	void update(void);
+	void reload(void);
 	void render(void);
 };

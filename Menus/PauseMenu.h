@@ -14,5 +14,6 @@ public:
 	~PauseMenu(void) {}
 	void handleInput(void);
 	void update(void) {}
+	void reload(void) {};
 	void render(void);
 };

@@ -36,10 +36,11 @@ using std::string;
 using std::to_string;
 using std::remove;
 using std::runtime_error;
+using std::unique_ptr;
 
 #define DISABLE_TASKBAR TRUE
 #define ENABLE_CONSOLE TRUE
-#define DEBUGGING TRUE
+#define DEBUGGING FALSE
 
 const string GAME_TITLE = "The Purge";
 

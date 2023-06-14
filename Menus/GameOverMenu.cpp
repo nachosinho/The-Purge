@@ -2,14 +2,13 @@
 #include "../Engine/GameManager.h"
 
 GameOverMenu::GameOverMenu(GameManager* _gameManager)
-	: m_Timer(0)
+	: Menu("OVER", _gameManager), m_Timer(0)
 {
+	this->m_GameState = GameManager::GAMESTATE::OVER;
 	this->m_GameManager = _gameManager;
 
 	if (this->m_GameManager == nullptr)
-		return;
-
-	this->m_GameManager->getCurrentLevel()->getSFX()->stop();
+		return;	
 
 	this->m_ExitButton.setSize(Vector2f(200.f, 50.f));
 	this->m_ExitButton.setPosition(WINDOW_X / 2 - this->m_ExitButton.getSize().x / 2, -this->m_ExitButton.getGlobalBounds().height);
@@ -71,9 +70,8 @@ void GameOverMenu::handleInput(void) {
 					return;
 
 				Vector2f mousePos = Vector2f(_event->mouseButton.x * 1.0f, _event->mouseButton.y * 1.0f);
-				if (this->m_PlayButton.getGlobalBounds().contains(mousePos)) {
+				if (this->m_PlayButton.getGlobalBounds().contains(mousePos))
 					this->m_GameManager->restartGame();
-				}
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
 					_window->close();
@@ -94,6 +92,14 @@ void GameOverMenu::render(void) {
 	this->m_GameManager->getWindow()->draw(this->m_ExitText);
 
 	this->handleInput();
+}
+
+void GameOverMenu::reload(void) {
+	if (this->m_GameManager == nullptr)
+		return;
+
+	this->m_SFX->stop();
+	this->m_Timer = 0;
 }
 
 void GameOverMenu::update(void) {

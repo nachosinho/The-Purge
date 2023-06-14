@@ -1,8 +1,10 @@
 #include "PauseMenu.h"
 #include "../Engine/GameManager.h"
 
-PauseMenu::PauseMenu(GameManager* _gameManager) {
-	this->m_GameManager = _gameManager;
+PauseMenu::PauseMenu(GameManager* _gameManager)
+	: Menu("PAUSE", _gameManager)
+{
+	this->m_GameState = GameManager::GAMESTATE::PAUSED;
 
 	if (!m_BackgroundTexture.loadFromFile("Assets/Textures/Interface/MainMenu.png"))
 		return;
@@ -63,7 +65,7 @@ void PauseMenu::handleInput(void) {
 
 				Vector2f mousePos = Vector2f(_event->mouseButton.x * 1.0f, _event->mouseButton.y * 1.0f);
 				if (this->m_ReturnButton.getGlobalBounds().contains(mousePos))
-					this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
+					this->m_GameManager->setMenu("PLAYING");
 
 				else if (this->m_ExitButton.getGlobalBounds().contains(mousePos))
 					_window->close();
@@ -72,7 +74,7 @@ void PauseMenu::handleInput(void) {
 
 		case Event::KeyPressed:
 			if (_event->key.code == Keyboard::Escape)
-				this->m_GameManager->setMenu(nullptr, GameManager::GAMESTATE::PLAYING);
+				this->m_GameManager->setMenu("PLAYING");
 			break;
 		}
 	}
