@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-#include "../Engine/GameManager.h"
+#include "../Engine/Core/GameManager.h"
 
 MainMenu::MainMenu(GameManager* _gameManager)
 	: Menu("MAINMENU", _gameManager), m_Timer(0)

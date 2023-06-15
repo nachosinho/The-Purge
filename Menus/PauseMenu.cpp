@@ -1,5 +1,5 @@
 #include "PauseMenu.h"
-#include "../Engine/GameManager.h"
+#include "../Engine/Core/GameManager.h"
 
 PauseMenu::PauseMenu(GameManager* _gameManager)
 	: Menu("PAUSE", _gameManager)

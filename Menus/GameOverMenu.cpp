@@ -1,5 +1,5 @@
 #include "GameOverMenu.h"
-#include "../Engine/GameManager.h"
+#include "../Engine/Core/GameManager.h"
 
 GameOverMenu::GameOverMenu(GameManager* _gameManager)
 	: Menu("OVER", _gameManager), m_Timer(0)
