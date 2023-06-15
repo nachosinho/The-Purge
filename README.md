@@ -5,6 +5,7 @@
 - WASD - poruszanie się
 - 1-3 - zmiana broni
 - R - przeładowanie
+- Escape - pauza
 - LPM - strzał
 
 ### ZA WSZYSTKIE OPERACJE W GRZE ODPOWIADA KLASA GAMEMANAGER
