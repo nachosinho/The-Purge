@@ -1,0 +1,5 @@
+DeathLock,102
+DeathLock,96
+DeathLock,75
+DeathLock,69
+DeathLock,57

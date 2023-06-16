@@ -74,8 +74,17 @@ void Enemy::moveControl(void) {
 		abs(hitbox.getPosition().y - enemyPosition.y - this->getGlobalBounds().height / 2.f) };
 	float distanceFloat = sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
 
+	float angleDiff = rotation - this->getRotation();
+	if (angleDiff > 180.0f) {
+		angleDiff -= 360.0f;
+	}
+	else if (angleDiff < -180.0f) {
+		angleDiff += 360.0f;
+	}
+	float newRot = this->getRotation() + 0.1f * angleDiff;
+
 	if (distanceFloat > 50.f && this->getCurrentAnimation()->getName() != "ATTACK") {
-		this->setRotation(rotation);
+		this->setRotation(newRot);
 		this->move(position);
 	} else dynamic_cast<Melee*>(this->m_Weapon)->attack(this->m_GameManager->getPlayer());
 }
