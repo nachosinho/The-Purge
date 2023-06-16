@@ -1,13 +1,14 @@
 # The Purge
 
-
 ## INFO
 
-WASD - poruszanie się
-1-3 - zmiana broni
-R - przeładowanie
-LPM - strzał
-## ZA WSZYSTKIE OPERACJE W GRZE ODPOWIADA KLASA GAMEMANAGER
+- WASD - poruszanie się
+- 1-3 - zmiana broni
+- R - przeładowanie
+- Escape - pauza
+- LPM - strzał
+
+### ZA WSZYSTKIE OPERACJE W GRZE ODPOWIADA KLASA GAMEMANAGER
 
 ## Krótki opis fabuły
 W przyszłości ludzkość znalazła się w stanie permanentnej apokalipsy zombie. Świat został opanowany przez hordy krwiożerczych nieumarłych, a
@@ -47,21 +48,27 @@ liście rankingowej.
 - Do wyboru kilka lokacji oraz postaci.
 - Będzie możliwość poruszania się w sposób ciągły, gracz porusza się ze stałą prędkością.
 - Przeciwnicy podstawowi (Zombie) przemieszczają się, atakując gracza w sposób bezpośredni (kontakt).
-- Kontakt bezpośredni odbiera część paska życia graczowi po upływie chwili
+- Kontakt bezpośredni odbiera część paska życia graczowi po nawiązaniu kontaktu
 - Walka z przeciwnikami polega na strzelaniu w nich, odbierając im część paska zdrowia, kiedy pasek spada poniżej 0, przeciwnik umiera.
-- W walce posłużą graczowi różnego rodzaju bronie: pistolet (broń podstawowa), UZI (szybko strzelająca), Shotgun (zwiększone obrażenia, potrójny strzał)
+- W walce posłużą graczowi różnego rodzaju bronie:
+    - pistolet (broń podstawowa)
+    - UZI (szybko strzelająca)
+    - Shotgun (zwiększone obrażenia, potrójny strzał)
 - Gracz może znaleźć nowe bronie w Loot Boxach, które będą rozsiane po mapie losowo, po odebraniu go przez gracza, Loot Box znika. Pojawia się po dłuższym czasie.
 - Rozgrywka przebiega w sposób ciągły - przeciwnicy z kolejnymi poziomami rozgrywki stają się coraz szybsi, bardziej odporni na ataki oraz przede wszystkim liczniejsi.
 - Poziom osiągnięć gracza jest monitorowany - gracz zdobywa punkty za zabijanie przeciwników.
 - Gra będzie miała element rywalizacji - najlepsze wyniki graczy zapisywane będą w tabeli najlepszych wyników.
-DODATKOWO:
-- Licznik amunicji(R - przeładowanie)
+
+
+## DODATKOWO:
+- Licznik amunicji (R - przeładowanie)
 - Lootboxy pojawiają, jak się nie podniesie znikają i znowu odlicza, dodaje jeden z 6 bonusów:
-  a)zwiększone obrażenia na aktualnej broni
-  b)zwiększona amunicja na aktualnej broni
-  c)zwiększona prędkość pocisków na aktualnej broni
-  d)szybsze przeładowanie aktualnej broni
-  e)zwiększenie max zdrowia
-  f)szybsze poruszanie się
+  - zwiększone obrażenia na aktualnej broni
+  - zwiększona amunicja na aktualnej broni
+  - zwiększona prędkość pocisków na aktualnej broni
+  - szybsze przeładowanie aktualnej broni
+  - zwiększenie max zdrowia
+  - szybsze poruszanie się
 - do tabeli wyników zapisywana jest nazwa aktualnie zalogowanego użytkownika w komputerze
+- zmiana aktywnego okna powoduje wywołanie pauzy
 - W grze została wykorzystany autorski soundtrack
